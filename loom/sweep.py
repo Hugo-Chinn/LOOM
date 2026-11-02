@@ -20,6 +20,7 @@ VARIANTS = {
     "untied": {"shared_update": False},
     "depth_embedding": {"depth_conditioning": True},
     "wide4": {"expansion_factor": 4},
+    "attention": {"update_type": "attention", "update_options": {"num_heads": 4}},
 }
 
 

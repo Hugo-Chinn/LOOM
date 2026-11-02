@@ -4,6 +4,10 @@ Read `docs/METHOD.md` and `docs/CONFIGURATION.md` before algorithm changes.
 Supported portable API is `loom/`, `configs/portable/`, `tests/`. Historical
 code is isolated in `research/`; its configurations are in `configs/research/`.
 Do not confuse Head-LoopMT and Native recurrence or modify historical runs.
+For new architectures read `docs/ARCHITECTURE_EXPLORATION.md` and fill
+`docs/AGENT_TASK_TEMPLATE.md`. Register a fresh update factory in `loom/updates.py`
+instead of editing the graph/loss pipeline for an update-only experiment.
+Built-in `attention` is exploratory, not a proven improvement.
 
 ```bash
 python -m pip install -e ".[dev]"

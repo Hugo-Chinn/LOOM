@@ -10,6 +10,7 @@ from torch import nn
 from torch.nn import functional as F
 
 from .config import LOOMConfig
+from .updates import build_update
 
 
 class TokenMixerBlock(nn.Module):
@@ -91,9 +92,14 @@ class LOOM(nn.Module):
                 if i in self.parents[j] or any(p in found for p in self.parents[j]):
                     found.add(j)
             self.descendants.append(sorted(found))
-        self.shared_block = TokenMixerBlock(config) if config.shared_update else None
+        self.shared_block = build_update(config) if config.shared_update else None
         self.blocks = (None if config.shared_update else nn.ModuleList(
-            [TokenMixerBlock(config) for _ in range(n + config.num_preloops)]))
+            [build_update(config) for _ in range(n + config.num_preloops)]))
+        if self.blocks is not None:
+            identities = [{id(p) for p in block.parameters()} for block in self.blocks]
+            for i, ids in enumerate(identities):
+                if any(ids.intersection(other) for other in identities[:i]):
+                    raise ValueError("untied update factory reused parameters; return fresh modules")
         self.behavior_embedding = nn.Embedding(n, d) if config.behavior_conditioning else None
         self.depth_embedding = (nn.Embedding(config.num_preloops + max(self.depths) + 1, d)
                                 if config.depth_conditioning else None)
@@ -118,6 +124,10 @@ class LOOM(nn.Module):
             x = x + self.depth_embedding.weight[depth][None, None, :]
         block = self.shared_block if self.shared_block is not None else self.blocks[stage]
         candidate = block(x)
+        if candidate.shape != previous.shape:
+            raise ValueError("update must preserve [batch, num_tokens, token_dim] shape")
+        if candidate.device != previous.device or candidate.dtype != previous.dtype:
+            raise ValueError("update must preserve input device and dtype")
         gates = self.gate_logits if behavior else self.preloop_gate_logits
         if gates is None:
             return candidate

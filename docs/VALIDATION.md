@@ -62,3 +62,12 @@ checked against each original final Test log block.
 
 This validates configuration preparation and reference provenance, not a new
 training run or raw-data preprocessing reproduction.
+
+## Pluggable Update Validation
+
+After adding named update factories, all 35 tests passed locally on CPU.
+Contracts cover Mixer and exploratory Attention in tied/untied modes, preloop
+gradients, checkpoint reload, invalid options and rejection of reused parameters.
+Default historical Mixer parity and deterministic training tests still pass.
+Attention also completed the three-epoch demo CLI train/predict workflow.
+CUDA/BF16, efficiency and real-dataset accuracy for Attention remain unmeasured.

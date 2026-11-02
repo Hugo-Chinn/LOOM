@@ -5,6 +5,7 @@ All shipped model configurations live here.
 | Directory | Purpose |
 |---|---|
 | `portable/default.yaml` | Supported small LOOM example; start here |
+| `portable/attention.yaml` | Exploratory update candidate with unchanged graph/loss |
 | `research/config/` | Original UniRank defaults |
 | `research/config_rankmixer_*` | Historical Native RankMixer and component studies |
 | `research/config_onetrans_*` | Historical OneTrans studies |

@@ -1,0 +1,28 @@
+# Exploratory candidate; no superiority claim or historical AUC reproduction.
+model:
+  tasks: [click, cart, fav, buy]
+  token_dim: 32
+  num_tokens: 4
+  topology: dag
+  graph:
+    click: []
+    cart: [click]
+    fav: [click]
+    buy: [cart, fav]
+  update_type: attention
+  update_options:
+    num_heads: 4
+  expansion_factor: 2
+  update_layers: 1
+  num_preloops: 0
+  behavior_conditioning: true
+  shared_update: true
+  use_loop_gate: true
+  loop_gate_init: 0.5
+  supervision: deep_progressive
+  auxiliary_loss_weight: 0.5
+  parent_fusion: mean
+training:
+  epochs: 3
+  batch_size: 128
+  learning_rate: 0.001

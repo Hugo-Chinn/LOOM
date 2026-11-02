@@ -5,6 +5,7 @@ LOOM/
   loom/                   supported library, CLI and bounded experiments
     config.py             validated algorithm configuration
     core.py               token Mixer and recurrent behavior graph
+    updates.py            named update factories and exploratory candidates
     cli.py                example encoder, training, evaluation, inference
     sweep.py              bounded component comparisons
     report.py             per-seed/task metrics and paired statistics

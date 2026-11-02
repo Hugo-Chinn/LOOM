@@ -49,6 +49,8 @@ not the historical RankMixer feature/sequence tokenizer.
 - [Core equations and compatibility boundary](docs/METHOD.md)
 - [Configuration schema and bounded search space](docs/CONFIGURATION.md)
 - [Coding-agent instructions](AGENTS.md)
+- [Pluggable updates and architecture exploration](docs/ARCHITECTURE_EXPLORATION.md)
+- [Agent experiment/PR template](docs/AGENT_TASK_TEMPLATE.md)
 - [Repository architecture and migration map](docs/REPOSITORY.md)
 - [Historical Native Full presets and Taobao reproduction](docs/HISTORICAL_REPRODUCTION.md)
 
@@ -81,6 +83,11 @@ artifacts. This is not a research benchmark or autonomous AGI service.
 | `tests/` | Core, ablation and end-to-end tests |
 | `docs/` | Method, configuration and dataset integration |
 | `research/` | Isolated historical models, framework and exploratory tools |
+
+New recurrent architectures can register an update factory without changing
+graph execution or losses. The default remains `mixer`; an exploratory
+`attention` example is in `configs/portable/attention.yaml`. Registry candidates
+share shape/gradient/checkpoint tests. No superiority is claimed for the example.
 
 Original benchmark reproduction uses the [historical research entry](research/README.md),
 original preprocessing and dataset-specific YAML. See [UniRank documentation](research/README_UNIRANK.md).

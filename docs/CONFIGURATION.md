@@ -12,6 +12,8 @@
 | `graph` | {} | Complete child-to-parent mapping required for DAG, including roots |
 | `expansion_factor` | 2 | FFN hidden width = factor times D |
 | `update_layers` | 1 | Mixer layers inside each recurrent update |
+| `update_type` | mixer | Registered update factory: mixer or exploratory attention |
+| `update_options` | {} | Factory-validated options; attention accepts num_heads |
 | `num_preloops` | 0 | Behavior-agnostic refinement before graph execution |
 | `behavior_conditioning` | true | Behavior embedding; false genuinely removes it |
 | `depth_conditioning` | false | Separate depth embedding, including preloop offset |
@@ -59,6 +61,8 @@ An explicit graph for a non-DAG mode is rejected, preventing ignored graph edits
 
 Portable loop count equals task count. Historical `num_layers`, `loop_scope`,
 final-state readout and task tokens are not implicitly mapped.
+Architecture extensions are described in [the extension contract](ARCHITECTURE_EXPLORATION.md).
+`update_layers` and `expansion_factor` apply inside either built-in update.
 
 ## Bounded Exploration
 

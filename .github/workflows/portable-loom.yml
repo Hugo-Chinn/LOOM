@@ -25,6 +25,11 @@ jobs:
       - run: python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
       - run: python -m pip install -e ".[dev]"
       - run: python -m pytest tests -q
+      - name: Registered attention candidate train and predict smoke test
+        run: |
+          loom demo-data --output /tmp/loom-attention-data
+          loom train --config configs/portable/attention.yaml --data /tmp/loom-attention-data --output /tmp/loom-attention-run --seed 20262027
+          loom predict --checkpoint /tmp/loom-attention-run/best.pt --input /tmp/loom-attention-data/test.npz --output /tmp/loom-attention-predictions.npz
   exploration:
     if: github.event_name == 'workflow_dispatch' && inputs.explore
     runs-on: ubuntu-latest

@@ -12,6 +12,8 @@ class LOOMConfig:
     graph: dict[str, list[str]] = field(default_factory=dict)
     expansion_factor: int = 2
     update_layers: int = 1
+    update_type: str = "mixer"
+    update_options: dict = field(default_factory=dict)
     num_preloops: int = 0
     behavior_conditioning: bool = True
     depth_conditioning: bool = False
@@ -26,6 +28,10 @@ class LOOMConfig:
     dropout: float = 0.0
 
     def __post_init__(self):
+        if not isinstance(self.update_type, str) or not self.update_type:
+            raise ValueError("update_type must be a nonempty registered name")
+        if not isinstance(self.update_options, dict):
+            raise ValueError("update_options must be a mapping")
         if not self.tasks or len(set(self.tasks)) != len(self.tasks):
             raise ValueError("tasks must be a nonempty ordered list of unique names")
         if any(not isinstance(t, str) or not t for t in self.tasks):
