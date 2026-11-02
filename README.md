@@ -27,7 +27,7 @@ python run_expid.py --config config_rankmixer_structure_merrec --expid Struct_Me
 
 ## Scope And Reproducibility
 
-This is a source snapshot of the research workspace, not a validated minimal release. It includes exploratory configurations and scripts. Model weights, raw datasets, experiment logs, reports, virtual environments, and synthetic heatmap values are excluded. No experimental performance claims are established by this release. Some analysis scripts require local experiment artifacts that are not included. Native component ablations use four seeds: 20262027, 20262028, 20262029, 20262030.
+This is a source snapshot of the research workspace, not a validated minimal release. It includes exploratory configurations and scripts. Model weights, raw datasets, experiment logs, reports, virtual environments, and generated synthetic heatmap CSVs are excluded. The heatmap pilot script contains explicitly labeled synthetic plotting placeholders; these are not experimental results. No experimental performance claims are established by this release. Some analysis scripts require local experiment artifacts that are not included. Native component ablations use four seeds: 20262027, 20262028, 20262029, 20262030.
 
 ## Attribution And License
 
