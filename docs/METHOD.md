@@ -1,7 +1,7 @@
 # LOOM Algorithm And Scope
 
 The portable `loom.LOOM` module implements Native-style recurrent updates over
-token states, not historical Head-LoopMT (`model_zoo/LoopMT.py`). The original
+token states, not historical Head-LoopMT (`research/model_zoo/LoopMT.py`). The original
 UniRank research implementations remain available separately.
 
 ## Feedback State And Recurrent Update
@@ -85,7 +85,7 @@ token readout.
 
 The numeric example encoder is **not the historical feature/sequence
 tokenizer**. Exact historical reproduction uses original preprocessing,
-features, splits, optimizer and configurations through `run_expid.py`.
+features, splits, optimizer and configurations through `research/run_expid.py`.
 Portable initialization/checkpoints are not claimed identical to all historical
 models. CI checks operator parity and API contracts, not industrial benchmark AUC.
 

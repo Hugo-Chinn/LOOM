@@ -19,11 +19,11 @@ python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
 python -m pip install -e ".[dev]"
 
 loom demo-data --output runs_local/demo-data
-loom train --config examples/portable.yaml --data runs_local/demo-data \
+loom train --config configs/portable/default.yaml --data runs_local/demo-data \
   --output runs_local/demo/S20262027 --seed 20262027
 loom predict --checkpoint runs_local/demo/S20262027/best.pt \
   --input runs_local/demo-data/test.npz --output runs_local/demo/predictions.npz
-python -m pytest tests_portable -q
+python -m pytest tests -q
 ```
 
 For GPU training, install an appropriate PyTorch CUDA build and pass
@@ -42,11 +42,12 @@ not the historical RankMixer feature/sequence tokenizer.
 - [Core equations and compatibility boundary](docs/METHOD.md)
 - [Configuration schema and bounded search space](docs/CONFIGURATION.md)
 - [Coding-agent instructions](AGENTS.md)
+- [Repository architecture and migration map](docs/REPOSITORY.md)
 
 ## Four-Seed Component Exploration
 
 ```bash
-python -m loom.sweep --config examples/portable.yaml --data runs_local/demo-data \
+python -m loom.sweep --config configs/portable/default.yaml --data runs_local/demo-data \
   --output runs_local/demo-ablation \
   --variants full no_bcu no_mas no_cbm untied \
   --seeds 20262027 20262028 20262029 20262030 --max-runs 20
@@ -67,20 +68,19 @@ artifacts. This is not a research benchmark or autonomous AGI service.
 | Path | Purpose |
 |---|---|
 | `loom/` | Installable backbone-independent core and CLI |
-| `examples/portable.yaml` | Complete small reference configuration |
-| `tests_portable/` | Core, ablation and end-to-end tests |
+| `configs/portable/default.yaml` | Complete small reference configuration |
+| `configs/research/` | All historical experiment configurations |
+| `tests/` | Core, ablation and end-to-end tests |
 | `docs/` | Method, configuration and dataset integration |
-| `model_zoo/RankMixer.py` | Historical Native RankMixer recurrence |
-| `model_zoo/OneTrans.py` | Historical OneTrans experiments |
-| `model_zoo/LoopMT.py` | Head-LoopMT, distinct from Native recurrence |
-| `config_*`, `scripts/`, `unirank/` | Original exploratory research snapshot |
+| `research/` | Isolated historical models, framework and exploratory tools |
 
-Original benchmark reproduction uses `run_expid.py`, `requirements.txt`,
-original preprocessing and dataset-specific YAML. See [UniRank documentation](README_UNIRANK.md).
+Original benchmark reproduction uses the [historical research entry](research/README.md),
+original preprocessing and dataset-specific YAML. See [UniRank documentation](research/README_UNIRANK.md).
 Some historical configs contain local paths; analysis scripts may need excluded
 artifacts. Portable checkpoints are not compatible with every historical extension.
 Datasets, weights, logs and reports are excluded. A historical heatmap pilot
-script contains explicitly labeled synthetic placeholders, not measured results.
+script in `research/scripts/` contains explicitly labeled synthetic placeholders,
+not measured results. The portable package never imports the research archive.
 
 ## Attribution And License
 

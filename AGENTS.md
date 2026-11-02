@@ -1,15 +1,15 @@
 # Coding Agent Guide
 
 Read `docs/METHOD.md` and `docs/CONFIGURATION.md` before algorithm changes.
-Supported portable API is `loom/`, `examples/`, `tests_portable/`. Historical
-`model_zoo/`, `unirank/`, `config_*` and `scripts/` are the research snapshot.
+Supported portable API is `loom/`, `configs/portable/`, `tests/`. Historical
+code is isolated in `research/`; its configurations are in `configs/research/`.
 Do not confuse Head-LoopMT and Native recurrence or modify historical runs.
 
 ```bash
 python -m pip install -e ".[dev]"
-python -m pytest tests_portable -q
+python -m pytest tests -q
 loom demo-data --output /tmp/loom-agent-data
-python -m loom.sweep --config examples/portable.yaml \
+python -m loom.sweep --config configs/portable/default.yaml \
   --data /tmp/loom-agent-data --output /tmp/loom-agent-study \
   --variants full no_bcu no_mas no_cbm untied \
   --seeds 20262027 20262028 --max-runs 10

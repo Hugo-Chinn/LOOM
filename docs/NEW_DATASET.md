@@ -21,7 +21,7 @@ events across splits. Do not infer ancestor labels from purchase unless the
 source data explicitly supports it. Encode categories appropriately; raw integer
 IDs are not meaningful numeric distances.
 
-Copy `examples/portable.yaml`, change tasks and graph. Every DAG task must be
+Copy `configs/portable/default.yaml`, change tasks and graph. Every DAG task must be
 declared, including roots.
 
 ```bash
@@ -79,6 +79,6 @@ Attaching LOOM after an entire encoder is post-backbone refinement, a different
 architecture that must be reported separately. The numeric reference encoder is
 not the historical RankMixer tokenizer.
 
-For original industrial experiments use retained `run_expid.py`, UniRank data
-preprocessing and dataset-specific configurations, installing `requirements.txt`
-as needed. See `README_UNIRANK.md`; machine-specific YAML paths need adjustment.
+For original industrial experiments see `research/README.md`. Install
+`research/requirements.txt` as needed. Historical YAML is in `configs/research/`;
+machine-specific data paths need adjustment.

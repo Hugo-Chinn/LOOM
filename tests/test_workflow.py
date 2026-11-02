@@ -14,7 +14,7 @@ def test_train_predict_end_to_end(tmp_path):
                        check=True, cwd=root, capture_output=True, text=True)
     data, output = tmp_path / "data", tmp_path / "run"
     run("demo-data", "--output", data)
-    run("train", "--config", root / "examples/portable.yaml",
+    run("train", "--config", root / "configs/portable/default.yaml",
         "--data", data, "--output", output)
     result = json.loads((output / "metrics.json").read_text())
     assert set(result["test"]) == {"click", "cart", "fav", "buy"}

@@ -24,7 +24,7 @@ jobs:
           python-version: ${{ matrix.python }}
       - run: python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
       - run: python -m pip install -e ".[dev]"
-      - run: python -m pytest tests_portable -q
+      - run: python -m pytest tests -q
   exploration:
     if: github.event_name == 'workflow_dispatch' && inputs.explore
     runs-on: ubuntu-latest
@@ -38,7 +38,7 @@ jobs:
       - run: python -m pip install -e .
       - run: loom demo-data --output /tmp/loom-data
       - run: >-
-          python -m loom.sweep --config examples/portable.yaml --data /tmp/loom-data
+          python -m loom.sweep --config configs/portable/default.yaml --data /tmp/loom-data
           --output /tmp/loom-study --variants full no_bcu no_mas no_cbm untied
           --seeds 20262027 20262028 --max-runs 10
       - uses: actions/upload-artifact@v4

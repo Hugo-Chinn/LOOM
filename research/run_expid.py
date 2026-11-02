@@ -16,6 +16,7 @@
 # =========================================================================
 
 import os
+_invocation_dir = os.getcwd()
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 import gc
 import logging
@@ -56,11 +57,15 @@ if __name__ == '__main__':
       torchrun --standalone --nproc_per_node=4 run_expid.py
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument('--config', type=str, default='./config/', help='The config directory.')
+    parser.add_argument('--config', type=str,
+                        default=os.path.abspath('../configs/research/config/'),
+                        help='The config directory, relative to your invocation directory.')
     parser.add_argument('--expid', type=str, default='RankMixer_KuaiRand_Video_Action', help='The experiment id to run.')
     parser.add_argument('--gpu', type=str, default='0,1,2,3', help='GPU ids, e.g. "0" or "0,1,2,3"; use "-1" for cpu')
     parser.add_argument('--enable_bf16', type=bool, default=True, help='Enable bfloat16 mixed precision training (default: True).')
     args = vars(parser.parse_args())
+    if not os.path.isabs(args["config"]):
+        args["config"] = os.path.join(_invocation_dir, args["config"])
 
     try:
         gpu_ids = parse_gpu_ids(args['gpu'])

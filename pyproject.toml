@@ -21,5 +21,4 @@ loom = "loom.cli:main"
 include = ["loom*"]
 
 [tool.pytest.ini_options]
-testpaths = ["tests_portable"]
-
+testpaths = ["tests"]

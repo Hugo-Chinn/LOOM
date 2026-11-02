@@ -99,7 +99,7 @@ def test_mixer_matches_historical_operator():
     import importlib.util
     from pathlib import Path
     from loom.core import TokenMixerBlock
-    root = Path(__file__).resolve().parents[1]
+    root = Path(__file__).resolve().parents[1] / "research"
     path = root / "unirank/pytorch/layers/interactions/token_mix.py"
     spec = importlib.util.spec_from_file_location("historical_mix", path)
     module = importlib.util.module_from_spec(spec)
@@ -125,7 +125,7 @@ def test_entire_mixer_block_matches_historical_with_identical_weights():
     import importlib.util
     from pathlib import Path
     from loom.core import TokenMixerBlock
-    root = Path(__file__).resolve().parents[1]
+    root = Path(__file__).resolve().parents[1] / "research"
     operators = {}
     for filename, name in [("token_mix.py", "MultiHeadTokenMixing"),
                            ("per_token_ffn.py", "PerTokenFeedForward")]:
