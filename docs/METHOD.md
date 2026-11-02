@@ -51,6 +51,9 @@ This is not identical to arbitrary DAG mean fusion.
 
 Deep supervision applies the same task head `f_t` at every descendant state.
 Those auxiliary logits are never substituted for the main evaluated prediction.
+For legacy `linear` and `branch` modes, historical supervision uses every later
+stage in task order, rather than graph descendants. In branch mode this includes
+Cart's auxiliary prediction on the Fav state. DAG mode uses descendants only.
 
 ```math
 \mathcal L=

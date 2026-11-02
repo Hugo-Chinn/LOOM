@@ -164,7 +164,9 @@ class LOOM(nn.Module):
         auxiliary = {}
         if return_auxiliary and self.config.supervision == "deep_progressive":
             for task in range(n):
-                for descendant in self.descendants[task]:
+                stages = (self.descendants[task] if self.config.topology == "dag"
+                          else range(task + 1, n))
+                for descendant in stages:
                     auxiliary[task, descendant] = self._readout(states[descendant], task, base)
         return {"logits": logits, "auxiliary": auxiliary}
 
