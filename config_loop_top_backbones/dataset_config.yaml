@@ -1,0 +1,43 @@
+Taobao_Action:
+  data_root: /home/HugoChinn/LoopMT/UniRank/data/preprocessed
+  data_format: parquet
+  train_data: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/Taobao_Action/train/data
+  valid_data: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/Taobao_Action/valid/data
+  test_data: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/Taobao_Action/test/data
+  train_user_info: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/Taobao_Action/train/user_info
+  train_item_info: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/Taobao_Action/train/item_info
+  valid_user_info: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/Taobao_Action/valid/user_info
+  valid_item_info: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/Taobao_Action/valid/item_info
+  test_user_info: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/Taobao_Action/test/user_info
+  test_item_info: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/Taobao_Action/test/item_info
+  rebuild_dataset: false
+  blocked: true
+  block_cache_size: 2
+  feature_cols:
+    - {name: user_index, active: true, dtype: int, type: meta}
+    - {name: item_index, active: true, dtype: int, type: meta}
+    - {name: seq_len, active: true, dtype: int, type: meta}
+    - {name: user_id, active: true, dtype: int, type: categorical, vocab_size: 470571}
+    - {name: item_id, active: true, dtype: int, type: categorical, vocab_size: 846812, source: item}
+    - {name: cate_id, active: true, dtype: int, type: categorical, vocab_size: 6409, source: item}
+    - {name: campaign_id, active: true, dtype: int, type: categorical, vocab_size: 354106, source: item}
+    - {name: customer_id, active: true, dtype: int, type: categorical, vocab_size: 220826, source: item}
+    - {name: brand, active: true, dtype: int, type: categorical, vocab_size: 88145, source: item}
+    - {name: price_bucket, active: true, dtype: int, type: categorical, vocab_size: 11, source: item}
+    - {name: cms_segid, active: true, dtype: int, type: categorical, vocab_size: 99}
+    - {name: cms_group_id, active: true, dtype: int, type: categorical, vocab_size: 15}
+    - {name: final_gender_code, active: true, dtype: int, type: categorical, vocab_size: 4}
+    - {name: age_level, active: true, dtype: int, type: categorical, vocab_size: 9}
+    - {name: pvalue_level, active: true, dtype: int, type: categorical, vocab_size: 5}
+    - {name: shopping_level, active: true, dtype: int, type: categorical, vocab_size: 5}
+    - {name: occupation, active: true, dtype: int, type: categorical, vocab_size: 4}
+    - {name: new_user_class_level, active: true, dtype: int, type: categorical, vocab_size: 6}
+    - {name: pid, active: true, dtype: int, type: categorical, vocab_size: 4}
+    - {name: is_weekend, active: true, dtype: int, type: categorical, vocab_size: 3}
+    - {name: hour, active: true, dtype: int, type: categorical, vocab_size: 25}
+    - {name: action, active: true, dtype: int, type: categorical, vocab_size: 17, source: action}
+  label_col:
+    - {name: is_click, dtype: float}
+    - {name: cart, dtype: float}
+    - {name: fav, dtype: float}
+    - {name: buy, dtype: float}

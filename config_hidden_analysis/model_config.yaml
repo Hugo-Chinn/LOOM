@@ -1,0 +1,475 @@
+Base:
+  debug_mode: false
+  dense_learning_rate: 0.0001
+  dense_optimizer: AdamW
+  dense_weight_decay: 0
+  early_stop_patience: 2
+  enable_torch_compile: true
+  eval_steps: null
+  feature_config: null
+  feature_specs: null
+  gradient_checkpointing: false
+  group_id: user_id
+  model_root: ./runs_local/checkpoints_hidden_analysis/
+  num_workers: 4
+  pickle_feature_encoder: true
+  save_best_only: true
+  sparse_learning_rate: 0.05
+  sparse_optimizer: Adagrad
+  use_features: null
+  verbose: 1
+  hidden_analysis_batches: 1
+  hidden_analysis_samples: 8192
+  hidden_analysis_projection_dim: 64
+  hidden_analysis_dir: ./runs_local/hidden_analysis
+Hidden_RankMixer_Baseline:
+  accumulation_steps: 1
+  attention_dropout: 0
+  batch_size: 8192
+  dataset_id: Taobao_Action
+  embedding_dim: 16
+  enable_loop_diagnostics: false
+  enable_torch_compile: true
+  epochs: 1
+  expansion_factor: 2
+  loop_scope: refinement
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: parallel
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 4
+  num_ns_token: 4
+  num_tasks: 4
+  num_workers: 4
+  seed: 20262027
+  shuffle: true
+  supervision_mode: progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+Hidden_RankMixer_Loop:
+  accumulation_steps: 1
+  attention_dropout: 0
+  auxiliary_loss_weight: 0.5
+  batch_size: 8192
+  dataset_id: Taobao_Action
+  embedding_dim: 16
+  enable_loop_diagnostics: false
+  enable_torch_compile: true
+  epochs: 1
+  expansion_factor: 2
+  loop_scope: refinement
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 4
+  num_ns_token: 4
+  num_tasks: 4
+  num_workers: 4
+  seed: 20262027
+  share_loop_parameters: true
+  shuffle: true
+  supervision_mode: deep_progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+Hidden_OneTrans_Baseline:
+  accumulation_steps: 1
+  batch_size: 8192
+  dataset_id: Taobao_Action
+  dnn_activations: ReLU
+  embedding_dim: 16
+  epochs: 1
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: OneTrans
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_heads: 2
+  num_layers: 3
+  num_ns_token: 4
+  num_tasks: 4
+  reduction_ratio: 0.5
+  seed: 20262027
+  shuffle: true
+  task: binary_classification
+  token_dim: 256
+  tokenizer_type: Auto
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+Hidden_OneTrans_Loop:
+  accumulation_steps: 1
+  auxiliary_loss_weight: 0.5
+  batch_size: 8192
+  dataset_id: Taobao_Action
+  dnn_activations: ReLU
+  embedding_dim: 16
+  enable_loop_diagnostics: false
+  enable_torch_compile: true
+  epochs: 1
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: OneTrans
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_heads: 2
+  num_layers: 3
+  num_loops: 4
+  num_ns_token: 4
+  num_tasks: 4
+  num_workers: 4
+  reduction_ratio: 0.5
+  seed: 20262027
+  share_loop_parameters: true
+  shuffle: true
+  supervision_mode: deep_progressive
+  task: binary_classification
+  token_dim: 256
+  tokenizer_type: Auto
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+Hidden_EST_Baseline:
+  accumulation_steps: 1
+  batch_size: 8192
+  dataset_id: Taobao_Action
+  dnn_activations: ReLU
+  embedding_dim: 16
+  epochs: 1
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: EST
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_heads: 2
+  num_layers: 3
+  num_tasks: 4
+  seed: 20262027
+  shuffle: true
+  task: binary_classification
+  token_dim: 256
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+Hidden_EST_Loop:
+  accumulation_steps: 1
+  batch_size: 8192
+  dataset_id: Taobao_Action
+  dnn_activations: ReLU
+  embedding_dim: 16
+  epochs: 1
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: EST
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_heads: 2
+  num_layers: 3
+  num_loops: 4
+  num_tasks: 4
+  seed: 20262027
+  shuffle: true
+  supervision_mode: deep_progressive
+  task: binary_classification
+  token_dim: 256
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+Hidden_HeMix_Baseline:
+  accumulation_steps: 1
+  batch_size: 8192
+  dataset_id: Taobao_Action
+  embedding_dim: 16
+  epochs: 1
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  low_rank_dim: 16
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: HeMix
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_glocal_token: 2
+  num_layers: 3
+  num_mix_heads: 2
+  num_real_token: 2
+  num_tasks: 4
+  real_seq_len: 20
+  seed: 20262027
+  shuffle: true
+  task: binary_classification
+  token_dim: 256
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+Hidden_HeMix_Loop:
+  accumulation_steps: 1
+  batch_size: 8192
+  dataset_id: Taobao_Action
+  embedding_dim: 16
+  epochs: 1
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  low_rank_dim: 16
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: HeMix
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_glocal_token: 2
+  num_layers: 3
+  num_loops: 4
+  num_mix_heads: 2
+  num_real_token: 2
+  num_tasks: 4
+  real_seq_len: 20
+  seed: 20262027
+  shuffle: true
+  supervision_mode: deep_progressive
+  task: binary_classification
+  token_dim: 256
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+Hidden_UltraHSTU_Baseline:
+  accumulation_steps: 1
+  batch_size: 8192
+  dataset_id: Taobao_Action
+  embedding_dim: 16
+  epochs: 1
+  k1:
+  - 32
+  - 32
+  - 16
+  k2:
+  - 20
+  - 10
+  - 10
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: UltraHSTU
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_heads: 1
+  num_tasks: 4
+  seed: 20262027
+  shuffle: true
+  task: binary_classification
+  token_dim: 256
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  truncation_ratio: 0.5
+  truncation_start_layer: 2
+  enable_torch_compile: false
+Hidden_UltraHSTU_Loop:
+  accumulation_steps: 1
+  batch_size: 8192
+  dataset_id: Taobao_Action
+  embedding_dim: 16
+  enable_torch_compile: false
+  epochs: 1
+  k1:
+  - 32
+  - 32
+  - 16
+  k2:
+  - 20
+  - 10
+  - 10
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: UltraHSTU
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_heads: 1
+  num_loops: 4
+  num_tasks: 4
+  seed: 20262027
+  shuffle: true
+  supervision_mode: deep_progressive
+  task: binary_classification
+  token_dim: 256
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  truncation_ratio: 0.5
+  truncation_start_layer: 2
+  use_behavior_embedding: true
+Hidden_RankMixer_Branch:
+  accumulation_steps: 1
+  attention_dropout: 0
+  auxiliary_loss_weight: 0.5
+  batch_size: 8192
+  dataset_id: Taobao_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loop_gate_init: 0.5
+  loop_scope: refinement
+  loop_topology: branch
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 4
+  num_ns_token: 4
+  num_tasks: 4
+  seed: 20262027
+  share_loop_parameters: true
+  shuffle: true
+  supervision_mode: deep_progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+  use_loop_gate: false

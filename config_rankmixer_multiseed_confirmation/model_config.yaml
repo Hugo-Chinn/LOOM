@@ -1,0 +1,2045 @@
+Base:
+  debug_mode: false
+  dense_learning_rate: 0.0001
+  dense_optimizer: AdamW
+  dense_weight_decay: 0
+  early_stop_patience: 2
+  enable_torch_compile: true
+  eval_steps: null
+  feature_config: null
+  feature_specs: null
+  gradient_checkpointing: false
+  group_id: user_id
+  model_root: ./runs_local/checkpoints_rankmixer_multiseed_confirmation/
+  num_workers: 4
+  pickle_feature_encoder: true
+  save_best_only: true
+  sparse_learning_rate: 0.05
+  sparse_optimizer: Adagrad
+  use_features: null
+  verbose: 1
+RankMixer_MerRec_Parallel_S20262028:
+  accumulation_steps: 1
+  attention_dropout: 0
+  batch_size: 8192
+  dataset_id: MerRec_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_ns_token: 4
+  num_tasks: 5
+  seed: 20262028
+  shuffle: true
+  task: binary_classification
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+RankMixer_MerRec_LinearGated_S20262028:
+  accumulation_steps: 1
+  attention_dropout: 0
+  auxiliary_loss_weight: 0.5
+  batch_size: 8192
+  dataset_id: MerRec_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loop_gate_init: 0.5
+  loop_scope: refinement
+  loop_topology: linear
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 5
+  num_ns_token: 4
+  num_tasks: 5
+  seed: 20262028
+  share_loop_parameters: true
+  shuffle: true
+  supervision_mode: deep_progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+  use_loop_gate: true
+RankMixer_MerRec_DAGGated_S20262028:
+  accumulation_steps: 1
+  attention_dropout: 0
+  auxiliary_loss_weight: 0.5
+  batch_size: 8192
+  behavior_graph:
+    Cart:
+    - Like
+    Checkout:
+    - Like
+    Like: []
+    Offer:
+    - Like
+    Purchase:
+    - Cart
+    - Offer
+    - Checkout
+  dataset_id: MerRec_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loop_gate_init: 0.5
+  loop_scope: refinement
+  loop_topology: dag
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 5
+  num_ns_token: 4
+  num_tasks: 5
+  seed: 20262028
+  share_loop_parameters: true
+  shuffle: true
+  supervision_mode: deep_progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+  use_loop_gate: true
+RankMixer_QK_Parallel_S20262028:
+  accumulation_steps: 1
+  attention_dropout: 0
+  batch_size: 8192
+  dataset_id: QK_Video_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_ns_token: 4
+  num_tasks: 4
+  seed: 20262028
+  shuffle: true
+  task: binary_classification
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+RankMixer_QK_Linear_S20262028:
+  accumulation_steps: 1
+  attention_dropout: 0
+  auxiliary_loss_weight: 0.5
+  batch_size: 8192
+  dataset_id: QK_Video_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loop_scope: refinement
+  loop_topology: linear
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 4
+  num_ns_token: 4
+  num_tasks: 4
+  seed: 20262028
+  share_loop_parameters: true
+  shuffle: true
+  supervision_mode: deep_progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+  use_loop_gate: false
+RankMixer_QK_DAGGated_S20262028:
+  accumulation_steps: 1
+  attention_dropout: 0
+  auxiliary_loss_weight: 0.5
+  batch_size: 8192
+  behavior_graph:
+    click: []
+    follow:
+    - like
+    like:
+    - click
+    share:
+    - like
+  dataset_id: QK_Video_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loop_gate_init: 0.5
+  loop_scope: refinement
+  loop_topology: dag
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 4
+  num_ns_token: 4
+  num_tasks: 4
+  seed: 20262028
+  share_loop_parameters: true
+  shuffle: true
+  supervision_mode: deep_progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+  use_loop_gate: true
+RankMixer_Kuai_Parallel_S20262028:
+  accumulation_steps: 1
+  attention_dropout: 0
+  batch_size: 8192
+  dataset_id: KuaiRand_Video_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_ns_token: 4
+  num_tasks: 6
+  seed: 20262028
+  shuffle: true
+  task: binary_classification
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+RankMixer_Kuai_Linear_S20262028:
+  accumulation_steps: 1
+  attention_dropout: 0
+  auxiliary_loss_weight: 0.5
+  batch_size: 8192
+  dataset_id: KuaiRand_Video_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loop_scope: refinement
+  loop_topology: linear
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 6
+  num_ns_token: 4
+  num_tasks: 6
+  seed: 20262028
+  share_loop_parameters: true
+  shuffle: true
+  supervision_mode: deep_progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+  use_loop_gate: false
+RankMixer_Kuai_DAGMeanPre2_S20262028:
+  accumulation_steps: 1
+  attention_dropout: 0
+  auxiliary_loss_weight: 0.5
+  batch_size: 8192
+  behavior_graph:
+    is_click: []
+    is_comment:
+    - is_like
+    - long_view
+    is_follow:
+    - is_like
+    - long_view
+    is_forward:
+    - is_like
+    - long_view
+    is_like:
+    - is_click
+    long_view:
+    - is_click
+  dag_parent_fusion: mean
+  dataset_id: KuaiRand_Video_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loop_gate_init: 0.5
+  loop_scope: refinement
+  loop_topology: dag
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 6
+  num_ns_token: 4
+  num_preloops: 2
+  num_tasks: 6
+  seed: 20262028
+  share_loop_parameters: true
+  shuffle: true
+  supervision_mode: deep_progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+  use_loop_gate: true
+RankMixer_TAAC_Parallel_S20262028:
+  accumulation_steps: 1
+  attention_dropout: 0
+  batch_size: 8192
+  dataset_id: TencentGR_10M_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: parallel
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_ns_token: 4
+  num_tasks: 2
+  seed: 20262028
+  shuffle: true
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+RankMixer_TAAC_Sequential_S20262028:
+  accumulation_steps: 1
+  attention_dropout: 0
+  batch_size: 8192
+  dataset_id: TencentGR_10M_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loop_scope: refinement
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: sequential
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 2
+  num_ns_token: 4
+  num_tasks: 2
+  seed: 20262028
+  share_loop_parameters: false
+  shuffle: true
+  supervision_mode: progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+RankMixer_TAAC_Loop_Progressive_S20262028:
+  accumulation_steps: 1
+  attention_dropout: 0
+  batch_size: 8192
+  dataset_id: TencentGR_10M_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loop_scope: refinement
+  loop_topology: linear
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 2
+  num_ns_token: 4
+  num_tasks: 2
+  seed: 20262028
+  share_loop_parameters: true
+  shuffle: true
+  supervision_mode: progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+  use_loop_gate: false
+RankMixer_TAAC_Loop_Deep_S20262028:
+  accumulation_steps: 1
+  attention_dropout: 0
+  auxiliary_loss_weight: 0.5
+  batch_size: 8192
+  dataset_id: TencentGR_10M_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loop_scope: refinement
+  loop_topology: linear
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 2
+  num_ns_token: 4
+  num_tasks: 2
+  seed: 20262028
+  share_loop_parameters: true
+  shuffle: true
+  supervision_mode: deep_progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+  use_loop_gate: false
+RankMixer_TAAC_Loop_GatedDeep_S20262028:
+  accumulation_steps: 1
+  attention_dropout: 0
+  auxiliary_loss_weight: 0.5
+  batch_size: 8192
+  dataset_id: TencentGR_10M_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loop_gate_init: 0.5
+  loop_scope: refinement
+  loop_topology: linear
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 2
+  num_ns_token: 4
+  num_tasks: 2
+  seed: 20262028
+  share_loop_parameters: true
+  shuffle: true
+  supervision_mode: deep_progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+  use_loop_gate: true
+RankMixer_TAAC_Loop_GatedDeep_Pre2_S20262028:
+  accumulation_steps: 1
+  attention_dropout: 0
+  auxiliary_loss_weight: 0.5
+  batch_size: 8192
+  dataset_id: TencentGR_10M_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loop_gate_init: 0.5
+  loop_scope: refinement
+  loop_topology: linear
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 2
+  num_ns_token: 4
+  num_preloops: 2
+  num_tasks: 2
+  seed: 20262028
+  share_loop_parameters: true
+  shuffle: true
+  supervision_mode: deep_progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+  use_loop_gate: true
+RankMixer_MerRec_Parallel_S20262029:
+  accumulation_steps: 1
+  attention_dropout: 0
+  batch_size: 8192
+  dataset_id: MerRec_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_ns_token: 4
+  num_tasks: 5
+  seed: 20262029
+  shuffle: true
+  task: binary_classification
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+RankMixer_MerRec_LinearGated_S20262029:
+  accumulation_steps: 1
+  attention_dropout: 0
+  auxiliary_loss_weight: 0.5
+  batch_size: 8192
+  dataset_id: MerRec_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loop_gate_init: 0.5
+  loop_scope: refinement
+  loop_topology: linear
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 5
+  num_ns_token: 4
+  num_tasks: 5
+  seed: 20262029
+  share_loop_parameters: true
+  shuffle: true
+  supervision_mode: deep_progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+  use_loop_gate: true
+RankMixer_MerRec_DAGGated_S20262029:
+  accumulation_steps: 1
+  attention_dropout: 0
+  auxiliary_loss_weight: 0.5
+  batch_size: 8192
+  behavior_graph:
+    Cart:
+    - Like
+    Checkout:
+    - Like
+    Like: []
+    Offer:
+    - Like
+    Purchase:
+    - Cart
+    - Offer
+    - Checkout
+  dataset_id: MerRec_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loop_gate_init: 0.5
+  loop_scope: refinement
+  loop_topology: dag
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 5
+  num_ns_token: 4
+  num_tasks: 5
+  seed: 20262029
+  share_loop_parameters: true
+  shuffle: true
+  supervision_mode: deep_progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+  use_loop_gate: true
+RankMixer_QK_Parallel_S20262029:
+  accumulation_steps: 1
+  attention_dropout: 0
+  batch_size: 8192
+  dataset_id: QK_Video_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_ns_token: 4
+  num_tasks: 4
+  seed: 20262029
+  shuffle: true
+  task: binary_classification
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+RankMixer_QK_Linear_S20262029:
+  accumulation_steps: 1
+  attention_dropout: 0
+  auxiliary_loss_weight: 0.5
+  batch_size: 8192
+  dataset_id: QK_Video_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loop_scope: refinement
+  loop_topology: linear
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 4
+  num_ns_token: 4
+  num_tasks: 4
+  seed: 20262029
+  share_loop_parameters: true
+  shuffle: true
+  supervision_mode: deep_progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+  use_loop_gate: false
+RankMixer_QK_DAGGated_S20262029:
+  accumulation_steps: 1
+  attention_dropout: 0
+  auxiliary_loss_weight: 0.5
+  batch_size: 8192
+  behavior_graph:
+    click: []
+    follow:
+    - like
+    like:
+    - click
+    share:
+    - like
+  dataset_id: QK_Video_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loop_gate_init: 0.5
+  loop_scope: refinement
+  loop_topology: dag
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 4
+  num_ns_token: 4
+  num_tasks: 4
+  seed: 20262029
+  share_loop_parameters: true
+  shuffle: true
+  supervision_mode: deep_progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+  use_loop_gate: true
+RankMixer_Kuai_Parallel_S20262029:
+  accumulation_steps: 1
+  attention_dropout: 0
+  batch_size: 8192
+  dataset_id: KuaiRand_Video_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_ns_token: 4
+  num_tasks: 6
+  seed: 20262029
+  shuffle: true
+  task: binary_classification
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+RankMixer_Kuai_Linear_S20262029:
+  accumulation_steps: 1
+  attention_dropout: 0
+  auxiliary_loss_weight: 0.5
+  batch_size: 8192
+  dataset_id: KuaiRand_Video_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loop_scope: refinement
+  loop_topology: linear
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 6
+  num_ns_token: 4
+  num_tasks: 6
+  seed: 20262029
+  share_loop_parameters: true
+  shuffle: true
+  supervision_mode: deep_progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+  use_loop_gate: false
+RankMixer_Kuai_DAGMeanPre2_S20262029:
+  accumulation_steps: 1
+  attention_dropout: 0
+  auxiliary_loss_weight: 0.5
+  batch_size: 8192
+  behavior_graph:
+    is_click: []
+    is_comment:
+    - is_like
+    - long_view
+    is_follow:
+    - is_like
+    - long_view
+    is_forward:
+    - is_like
+    - long_view
+    is_like:
+    - is_click
+    long_view:
+    - is_click
+  dag_parent_fusion: mean
+  dataset_id: KuaiRand_Video_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loop_gate_init: 0.5
+  loop_scope: refinement
+  loop_topology: dag
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 6
+  num_ns_token: 4
+  num_preloops: 2
+  num_tasks: 6
+  seed: 20262029
+  share_loop_parameters: true
+  shuffle: true
+  supervision_mode: deep_progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+  use_loop_gate: true
+RankMixer_TAAC_Parallel_S20262029:
+  accumulation_steps: 1
+  attention_dropout: 0
+  batch_size: 8192
+  dataset_id: TencentGR_10M_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: parallel
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_ns_token: 4
+  num_tasks: 2
+  seed: 20262029
+  shuffle: true
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+RankMixer_TAAC_Sequential_S20262029:
+  accumulation_steps: 1
+  attention_dropout: 0
+  batch_size: 8192
+  dataset_id: TencentGR_10M_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loop_scope: refinement
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: sequential
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 2
+  num_ns_token: 4
+  num_tasks: 2
+  seed: 20262029
+  share_loop_parameters: false
+  shuffle: true
+  supervision_mode: progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+RankMixer_TAAC_Loop_Progressive_S20262029:
+  accumulation_steps: 1
+  attention_dropout: 0
+  batch_size: 8192
+  dataset_id: TencentGR_10M_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loop_scope: refinement
+  loop_topology: linear
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 2
+  num_ns_token: 4
+  num_tasks: 2
+  seed: 20262029
+  share_loop_parameters: true
+  shuffle: true
+  supervision_mode: progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+  use_loop_gate: false
+RankMixer_TAAC_Loop_Deep_S20262029:
+  accumulation_steps: 1
+  attention_dropout: 0
+  auxiliary_loss_weight: 0.5
+  batch_size: 8192
+  dataset_id: TencentGR_10M_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loop_scope: refinement
+  loop_topology: linear
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 2
+  num_ns_token: 4
+  num_tasks: 2
+  seed: 20262029
+  share_loop_parameters: true
+  shuffle: true
+  supervision_mode: deep_progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+  use_loop_gate: false
+RankMixer_TAAC_Loop_GatedDeep_S20262029:
+  accumulation_steps: 1
+  attention_dropout: 0
+  auxiliary_loss_weight: 0.5
+  batch_size: 8192
+  dataset_id: TencentGR_10M_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loop_gate_init: 0.5
+  loop_scope: refinement
+  loop_topology: linear
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 2
+  num_ns_token: 4
+  num_tasks: 2
+  seed: 20262029
+  share_loop_parameters: true
+  shuffle: true
+  supervision_mode: deep_progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+  use_loop_gate: true
+RankMixer_TAAC_Loop_GatedDeep_Pre2_S20262029:
+  accumulation_steps: 1
+  attention_dropout: 0
+  auxiliary_loss_weight: 0.5
+  batch_size: 8192
+  dataset_id: TencentGR_10M_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loop_gate_init: 0.5
+  loop_scope: refinement
+  loop_topology: linear
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 2
+  num_ns_token: 4
+  num_preloops: 2
+  num_tasks: 2
+  seed: 20262029
+  share_loop_parameters: true
+  shuffle: true
+  supervision_mode: deep_progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+  use_loop_gate: true
+RankMixer_MerRec_Parallel_S20262030:
+  accumulation_steps: 1
+  attention_dropout: 0
+  batch_size: 8192
+  dataset_id: MerRec_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_ns_token: 4
+  num_tasks: 5
+  seed: 20262030
+  shuffle: true
+  task: binary_classification
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+RankMixer_MerRec_LinearGated_S20262030:
+  accumulation_steps: 1
+  attention_dropout: 0
+  auxiliary_loss_weight: 0.5
+  batch_size: 8192
+  dataset_id: MerRec_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loop_gate_init: 0.5
+  loop_scope: refinement
+  loop_topology: linear
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 5
+  num_ns_token: 4
+  num_tasks: 5
+  seed: 20262030
+  share_loop_parameters: true
+  shuffle: true
+  supervision_mode: deep_progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+  use_loop_gate: true
+RankMixer_MerRec_DAGGated_S20262030:
+  accumulation_steps: 1
+  attention_dropout: 0
+  auxiliary_loss_weight: 0.5
+  batch_size: 8192
+  behavior_graph:
+    Cart:
+    - Like
+    Checkout:
+    - Like
+    Like: []
+    Offer:
+    - Like
+    Purchase:
+    - Cart
+    - Offer
+    - Checkout
+  dataset_id: MerRec_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loop_gate_init: 0.5
+  loop_scope: refinement
+  loop_topology: dag
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 5
+  num_ns_token: 4
+  num_tasks: 5
+  seed: 20262030
+  share_loop_parameters: true
+  shuffle: true
+  supervision_mode: deep_progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+  use_loop_gate: true
+RankMixer_QK_Parallel_S20262030:
+  accumulation_steps: 1
+  attention_dropout: 0
+  batch_size: 8192
+  dataset_id: QK_Video_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_ns_token: 4
+  num_tasks: 4
+  seed: 20262030
+  shuffle: true
+  task: binary_classification
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+RankMixer_QK_Linear_S20262030:
+  accumulation_steps: 1
+  attention_dropout: 0
+  auxiliary_loss_weight: 0.5
+  batch_size: 8192
+  dataset_id: QK_Video_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loop_scope: refinement
+  loop_topology: linear
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 4
+  num_ns_token: 4
+  num_tasks: 4
+  seed: 20262030
+  share_loop_parameters: true
+  shuffle: true
+  supervision_mode: deep_progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+  use_loop_gate: false
+RankMixer_QK_DAGGated_S20262030:
+  accumulation_steps: 1
+  attention_dropout: 0
+  auxiliary_loss_weight: 0.5
+  batch_size: 8192
+  behavior_graph:
+    click: []
+    follow:
+    - like
+    like:
+    - click
+    share:
+    - like
+  dataset_id: QK_Video_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loop_gate_init: 0.5
+  loop_scope: refinement
+  loop_topology: dag
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 4
+  num_ns_token: 4
+  num_tasks: 4
+  seed: 20262030
+  share_loop_parameters: true
+  shuffle: true
+  supervision_mode: deep_progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+  use_loop_gate: true
+RankMixer_Kuai_Parallel_S20262030:
+  accumulation_steps: 1
+  attention_dropout: 0
+  batch_size: 8192
+  dataset_id: KuaiRand_Video_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_ns_token: 4
+  num_tasks: 6
+  seed: 20262030
+  shuffle: true
+  task: binary_classification
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+RankMixer_Kuai_Linear_S20262030:
+  accumulation_steps: 1
+  attention_dropout: 0
+  auxiliary_loss_weight: 0.5
+  batch_size: 8192
+  dataset_id: KuaiRand_Video_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loop_scope: refinement
+  loop_topology: linear
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 6
+  num_ns_token: 4
+  num_tasks: 6
+  seed: 20262030
+  share_loop_parameters: true
+  shuffle: true
+  supervision_mode: deep_progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+  use_loop_gate: false
+RankMixer_Kuai_DAGMeanPre2_S20262030:
+  accumulation_steps: 1
+  attention_dropout: 0
+  auxiliary_loss_weight: 0.5
+  batch_size: 8192
+  behavior_graph:
+    is_click: []
+    is_comment:
+    - is_like
+    - long_view
+    is_follow:
+    - is_like
+    - long_view
+    is_forward:
+    - is_like
+    - long_view
+    is_like:
+    - is_click
+    long_view:
+    - is_click
+  dag_parent_fusion: mean
+  dataset_id: KuaiRand_Video_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loop_gate_init: 0.5
+  loop_scope: refinement
+  loop_topology: dag
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 6
+  num_ns_token: 4
+  num_preloops: 2
+  num_tasks: 6
+  seed: 20262030
+  share_loop_parameters: true
+  shuffle: true
+  supervision_mode: deep_progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+  use_loop_gate: true
+RankMixer_TAAC_Parallel_S20262030:
+  accumulation_steps: 1
+  attention_dropout: 0
+  batch_size: 8192
+  dataset_id: TencentGR_10M_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: parallel
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_ns_token: 4
+  num_tasks: 2
+  seed: 20262030
+  shuffle: true
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+RankMixer_TAAC_Sequential_S20262030:
+  accumulation_steps: 1
+  attention_dropout: 0
+  batch_size: 8192
+  dataset_id: TencentGR_10M_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loop_scope: refinement
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: sequential
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 2
+  num_ns_token: 4
+  num_tasks: 2
+  seed: 20262030
+  share_loop_parameters: false
+  shuffle: true
+  supervision_mode: progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+RankMixer_TAAC_Loop_Progressive_S20262030:
+  accumulation_steps: 1
+  attention_dropout: 0
+  batch_size: 8192
+  dataset_id: TencentGR_10M_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loop_scope: refinement
+  loop_topology: linear
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 2
+  num_ns_token: 4
+  num_tasks: 2
+  seed: 20262030
+  share_loop_parameters: true
+  shuffle: true
+  supervision_mode: progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+  use_loop_gate: false
+RankMixer_TAAC_Loop_Deep_S20262030:
+  accumulation_steps: 1
+  attention_dropout: 0
+  auxiliary_loss_weight: 0.5
+  batch_size: 8192
+  dataset_id: TencentGR_10M_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loop_scope: refinement
+  loop_topology: linear
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 2
+  num_ns_token: 4
+  num_tasks: 2
+  seed: 20262030
+  share_loop_parameters: true
+  shuffle: true
+  supervision_mode: deep_progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+  use_loop_gate: false
+RankMixer_TAAC_Loop_GatedDeep_S20262030:
+  accumulation_steps: 1
+  attention_dropout: 0
+  auxiliary_loss_weight: 0.5
+  batch_size: 8192
+  dataset_id: TencentGR_10M_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loop_gate_init: 0.5
+  loop_scope: refinement
+  loop_topology: linear
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 2
+  num_ns_token: 4
+  num_tasks: 2
+  seed: 20262030
+  share_loop_parameters: true
+  shuffle: true
+  supervision_mode: deep_progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+  use_loop_gate: true
+RankMixer_TAAC_Loop_GatedDeep_Pre2_S20262030:
+  accumulation_steps: 1
+  attention_dropout: 0
+  auxiliary_loss_weight: 0.5
+  batch_size: 8192
+  dataset_id: TencentGR_10M_Action
+  embedding_dim: 16
+  epochs: 1
+  expansion_factor: 2
+  loop_gate_init: 0.5
+  loop_scope: refinement
+  loop_topology: linear
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  max_len: 100
+  metrics:
+  - logloss
+  - AUC
+  model: RankMixer
+  model_type: looped
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  net_dropout: 0
+  num_layers: 3
+  num_loops: 2
+  num_ns_token: 4
+  num_preloops: 2
+  num_tasks: 2
+  seed: 20262030
+  share_loop_parameters: true
+  shuffle: true
+  supervision_mode: deep_progressive
+  task: binary_classification
+  task_token_mode: none
+  token_dim: 256
+  tokenizer_type: Chunk
+  tower_activations: ReLU
+  tower_hidden_units:
+  - 128
+  - 64
+  use_behavior_embedding: true
+  use_loop_gate: true

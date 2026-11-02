@@ -1,0 +1,4299 @@
+Base:
+  model_root: ./runs_local/checkpoints_all_baselines/
+  num_workers: 4
+  verbose: 1
+  early_stop_patience: 2
+  pickle_feature_encoder: true
+  save_best_only: true
+  eval_steps: null
+  debug_mode: false
+  group_id: user_id
+  use_features: null
+  feature_specs: null
+  feature_config: null
+  dense_optimizer: AdamW
+  sparse_optimizer: Adagrad
+  dense_learning_rate: 0.0001
+  sparse_learning_rate: 0.05
+  dense_weight_decay: 0
+  enable_torch_compile: true
+  gradient_checkpointing: false
+RankMixer_QK_Video_Action:
+  model: RankMixer
+  dataset_id: QK_Video_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  num_tasks: 4
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 256
+  num_ns_token: 4
+  tokenizer_type: Chunk
+  tower_hidden_units:
+  - 128
+  - 64
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+RankMixer_KuaiRand_Video_Action:
+  model: RankMixer
+  dataset_id: KuaiRand_Video_Action
+  loss: &id001
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  num_tasks: 6
+  metrics: &id002
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 256
+  num_ns_token: 4
+  tokenizer_type: Chunk
+  tower_hidden_units: &id003
+  - 128
+  - 64
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: &id004
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+RankMixer_KuaiRand_Video_Action_Ablation_TokenDim_Tiny:
+  model: RankMixer
+  dataset_id: KuaiRand_Video_Action
+  loss: *id001
+  num_tasks: 6
+  metrics: *id002
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 2
+  expansion_factor: 2
+  token_dim: 32
+  num_ns_token: 4
+  tokenizer_type: Chunk
+  tower_hidden_units: *id003
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id004
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+RankMixer_KuaiRand_Video_Action_Ablation_TokenDim_Small:
+  model: RankMixer
+  dataset_id: KuaiRand_Video_Action
+  loss: *id001
+  num_tasks: 6
+  metrics: *id002
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 2
+  expansion_factor: 2
+  token_dim: 64
+  num_ns_token: 4
+  tokenizer_type: Chunk
+  tower_hidden_units: *id003
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id004
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+RankMixer_KuaiRand_Video_Action_Ablation_TokenDim_Mid:
+  model: RankMixer
+  dataset_id: KuaiRand_Video_Action
+  loss: *id001
+  num_tasks: 6
+  metrics: *id002
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 2
+  expansion_factor: 2
+  token_dim: 128
+  num_ns_token: 4
+  tokenizer_type: Chunk
+  tower_hidden_units: *id003
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id004
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+RankMixer_KuaiRand_Video_Action_Ablation_TokenDim_Large:
+  model: RankMixer
+  dataset_id: KuaiRand_Video_Action
+  loss: *id001
+  num_tasks: 6
+  metrics: *id002
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 2
+  expansion_factor: 2
+  token_dim: 256
+  num_ns_token: 4
+  tokenizer_type: Chunk
+  tower_hidden_units: *id003
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id004
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+RankMixer_KuaiRand_Video_Action_Ablation_TokenDim_Ultra:
+  model: RankMixer
+  dataset_id: KuaiRand_Video_Action
+  loss: *id001
+  num_tasks: 6
+  metrics: *id002
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 2
+  expansion_factor: 2
+  token_dim: 512
+  num_ns_token: 4
+  tokenizer_type: Chunk
+  tower_hidden_units: *id003
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id004
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+RankMixer_KuaiRand_Video_Action_Ablation_MaxLen_Tiny:
+  model: RankMixer
+  dataset_id: KuaiRand_Video_Action
+  loss: *id001
+  num_tasks: 6
+  metrics: *id002
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 2
+  expansion_factor: 2
+  token_dim: 256
+  num_ns_token: 4
+  tokenizer_type: Chunk
+  tower_hidden_units: *id003
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id004
+  monitor_mode: max
+  max_len: 32
+  accumulation_steps: 1
+RankMixer_KuaiRand_Video_Action_Ablation_MaxLen_Small:
+  model: RankMixer
+  dataset_id: KuaiRand_Video_Action
+  loss: *id001
+  num_tasks: 6
+  metrics: *id002
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 2
+  expansion_factor: 2
+  token_dim: 256
+  num_ns_token: 4
+  tokenizer_type: Chunk
+  tower_hidden_units: *id003
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id004
+  monitor_mode: max
+  max_len: 64
+  accumulation_steps: 1
+RankMixer_KuaiRand_Video_Action_Ablation_MaxLen_Mid:
+  model: RankMixer
+  dataset_id: KuaiRand_Video_Action
+  loss: *id001
+  num_tasks: 6
+  metrics: *id002
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 2
+  expansion_factor: 2
+  token_dim: 256
+  num_ns_token: 4
+  tokenizer_type: Chunk
+  tower_hidden_units: *id003
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id004
+  monitor_mode: max
+  max_len: 128
+  accumulation_steps: 1
+RankMixer_KuaiRand_Video_Action_Ablation_MaxLen_Large:
+  model: RankMixer
+  dataset_id: KuaiRand_Video_Action
+  loss: *id001
+  num_tasks: 6
+  metrics: *id002
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 2
+  expansion_factor: 2
+  token_dim: 256
+  num_ns_token: 4
+  tokenizer_type: Chunk
+  tower_hidden_units: *id003
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id004
+  monitor_mode: max
+  max_len: 256
+  accumulation_steps: 1
+RankMixer_KuaiRand_Video_Action_Ablation_NumLayers_Mid:
+  model: RankMixer
+  dataset_id: KuaiRand_Video_Action
+  loss: *id001
+  num_tasks: 6
+  metrics: *id002
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 4
+  expansion_factor: 2
+  token_dim: 256
+  num_ns_token: 4
+  tokenizer_type: Chunk
+  tower_hidden_units: *id003
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id004
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+RankMixer_KuaiRand_Video_Action_Ablation_NumLayers_Large:
+  model: RankMixer
+  dataset_id: KuaiRand_Video_Action
+  loss: *id001
+  num_tasks: 6
+  metrics: *id002
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 6
+  expansion_factor: 2
+  token_dim: 256
+  num_ns_token: 4
+  tokenizer_type: Chunk
+  tower_hidden_units: *id003
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id004
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+RankMixer_KuaiRand_Video_Action_Tokenizer_Auto:
+  model: RankMixer
+  dataset_id: KuaiRand_Video_Action
+  loss: *id001
+  num_tasks: 6
+  metrics: *id002
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 256
+  num_ns_token: 4
+  tokenizer_type: Auto
+  tower_hidden_units: *id003
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id004
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+RankMixer_KuaiRand_Video_Action_Tokenizer_Field:
+  model: RankMixer
+  dataset_id: KuaiRand_Video_Action
+  loss: *id001
+  num_tasks: 6
+  metrics: *id002
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 128
+  num_ns_token: 4
+  tokenizer_type: Field
+  tower_hidden_units: *id003
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id004
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+RankMixer_KuaiRand_Video_Action_Tokenizer_Random:
+  model: RankMixer
+  dataset_id: KuaiRand_Video_Action
+  loss: *id001
+  num_tasks: 6
+  metrics: *id002
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 256
+  num_ns_token: 4
+  tokenizer_type: Random
+  tower_hidden_units: *id003
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id004
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+RankMixer_KuaiRand_Video_Action_Optimizer_Muon:
+  model: RankMixer
+  dataset_id: KuaiRand_Video_Action
+  loss: *id001
+  num_tasks: 6
+  metrics: *id002
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 256
+  num_ns_token: 4
+  tokenizer_type: Chunk
+  tower_hidden_units: *id003
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id004
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+  dense_optimizer: heavyball.Muon
+  dense_learning_rate: 0.01
+RankMixer_KuaiRand_Video_Action_Optimizer_LaProp:
+  model: RankMixer
+  dataset_id: KuaiRand_Video_Action
+  loss: *id001
+  num_tasks: 6
+  metrics: *id002
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 256
+  num_ns_token: 4
+  tokenizer_type: Chunk
+  tower_hidden_units: *id003
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id004
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+  dense_optimizer: heavyball.LaProp
+  dense_learning_rate: 0.0004
+RankMixer_KuaiRand_Video_Action_Optimizer_Scion:
+  model: RankMixer
+  dataset_id: KuaiRand_Video_Action
+  loss: *id001
+  num_tasks: 6
+  metrics: *id002
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 256
+  num_ns_token: 4
+  tokenizer_type: Chunk
+  tower_hidden_units: *id003
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id004
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+  dense_optimizer: heavyball.Scion
+  dense_learning_rate: 0.0025
+RankMixer_KuaiRand_Video_Action_Optimizer_SOAP:
+  model: RankMixer
+  dataset_id: KuaiRand_Video_Action
+  loss: *id001
+  num_tasks: 6
+  metrics: *id002
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 256
+  num_ns_token: 4
+  tokenizer_type: Chunk
+  tower_hidden_units: *id003
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id004
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+  dense_optimizer: heavyball.SOAP
+  dense_learning_rate: 0.001
+RankMixer_KuaiRand_Video_Action_Optimizer_RMSProp:
+  model: RankMixer
+  dataset_id: KuaiRand_Video_Action
+  loss: *id001
+  num_tasks: 6
+  metrics: *id002
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 256
+  num_ns_token: 4
+  tokenizer_type: Chunk
+  tower_hidden_units: *id003
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id004
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+  dense_optimizer: heavyball.RMSprop
+  dense_learning_rate: 0.0001
+RankMixer_TencentGR_10M_Action:
+  model: RankMixer
+  dataset_id: TencentGR_10M_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  num_tasks: 2
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 256
+  num_ns_token: 4
+  tokenizer_type: Chunk
+  tower_hidden_units:
+  - 128
+  - 64
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+RankMixer_Taobao_Action:
+  model: RankMixer
+  dataset_id: Taobao_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  num_tasks: 4
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 256
+  num_ns_token: 4
+  tokenizer_type: Chunk
+  tower_hidden_units:
+  - 128
+  - 64
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+RankMixer_MerRec_Action:
+  model: RankMixer
+  dataset_id: MerRec_Action
+  loss: &id005
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  num_tasks: 5
+  metrics: &id006
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 256
+  num_ns_token: 4
+  tokenizer_type: Chunk
+  tower_hidden_units: &id007
+  - 128
+  - 64
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: &id008
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+RankMixer_MerRec_Action_Tokenizer_Auto:
+  model: RankMixer
+  dataset_id: MerRec_Action
+  loss: *id005
+  num_tasks: 5
+  metrics: *id006
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 256
+  num_ns_token: 4
+  tokenizer_type: Auto
+  tower_hidden_units: *id007
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id008
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+RankMixer_MerRec_Action_Tokenizer_Field:
+  model: RankMixer
+  dataset_id: MerRec_Action
+  loss: *id005
+  num_tasks: 5
+  metrics: *id006
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 128
+  num_ns_token: 4
+  tokenizer_type: Field
+  tower_hidden_units: *id007
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id008
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+RankMixer_MerRec_Action_Tokenizer_Random:
+  model: RankMixer
+  dataset_id: MerRec_Action
+  loss: *id005
+  num_tasks: 5
+  metrics: *id006
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 256
+  num_ns_token: 4
+  tokenizer_type: Random
+  tower_hidden_units: *id007
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id008
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+RankMixer_MerRec_Action_Optimizer_Muon:
+  model: RankMixer
+  dataset_id: MerRec_Action
+  loss: *id005
+  num_tasks: 5
+  metrics: *id006
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 256
+  num_ns_token: 4
+  tokenizer_type: Chunk
+  tower_hidden_units: *id007
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id008
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+  dense_optimizer: heavyball.Muon
+  dense_learning_rate: 0.01
+RankMixer_MerRec_Action_Optimizer_LaProp:
+  model: RankMixer
+  dataset_id: MerRec_Action
+  loss: *id005
+  num_tasks: 5
+  metrics: *id006
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 256
+  num_ns_token: 4
+  tokenizer_type: Chunk
+  tower_hidden_units: *id007
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id008
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+  dense_optimizer: heavyball.LaProp
+  dense_learning_rate: 0.0004
+RankMixer_MerRec_Action_Optimizer_Scion:
+  model: RankMixer
+  dataset_id: MerRec_Action
+  loss: *id005
+  num_tasks: 5
+  metrics: *id006
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 256
+  num_ns_token: 4
+  tokenizer_type: Chunk
+  tower_hidden_units: *id007
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id008
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+  dense_optimizer: heavyball.Scion
+  dense_learning_rate: 0.0025
+RankMixer_MerRec_Action_Optimizer_SOAP:
+  model: RankMixer
+  dataset_id: MerRec_Action
+  loss: *id005
+  num_tasks: 5
+  metrics: *id006
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 256
+  num_ns_token: 4
+  tokenizer_type: Chunk
+  tower_hidden_units: *id007
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id008
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+  dense_optimizer: heavyball.SOAP
+  dense_learning_rate: 0.001
+RankMixer_MerRec_Action_Optimizer_RMSProp:
+  model: RankMixer
+  dataset_id: MerRec_Action
+  loss: *id005
+  num_tasks: 5
+  metrics: *id006
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 256
+  num_ns_token: 4
+  tokenizer_type: Chunk
+  tower_hidden_units: *id007
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id008
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+  dense_optimizer: heavyball.RMSprop
+  dense_learning_rate: 0.0001
+UniMixer_QK_Video_Action:
+  model: UniMixer
+  dataset_id: QK_Video_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  num_tasks: 4
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 256
+  num_tokens: 4
+  num_basis: 4
+  global_rank: 64
+  sinkhorn_iter: 5
+  sinkhorn_eps: 1.0e-06
+  tau: 1.0
+  tau_end: 0.05
+  tau_schedule: linear
+  tau_anneal_steps: 20000
+  tau_warmup_steps: 1000
+  use_out_proj: false
+  use_local_coef_softmax: true
+  use_tau_symmetry: true
+  tower_hidden_units:
+  - 128
+  - 64
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+UniMixer_KuaiRand_Video_Action:
+  model: UniMixer
+  dataset_id: KuaiRand_Video_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  num_tasks: 6
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 256
+  num_tokens: 4
+  num_basis: 4
+  global_rank: 64
+  sinkhorn_iter: 5
+  sinkhorn_eps: 1.0e-06
+  tau: 1.0
+  tau_end: 0.05
+  tau_schedule: linear
+  tau_anneal_steps: 20000
+  tau_warmup_steps: 1000
+  use_out_proj: false
+  use_local_coef_softmax: true
+  use_tau_symmetry: true
+  tower_hidden_units:
+  - 128
+  - 64
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+UniMixer_TencentGR_10M_Action:
+  model: UniMixer
+  dataset_id: TencentGR_10M_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  num_tasks: 2
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 256
+  num_tokens: 4
+  num_basis: 4
+  global_rank: 64
+  sinkhorn_iter: 5
+  sinkhorn_eps: 1.0e-06
+  tau: 1.0
+  tau_end: 0.05
+  tau_schedule: linear
+  tau_anneal_steps: 20000
+  tau_warmup_steps: 1000
+  use_out_proj: false
+  use_local_coef_softmax: true
+  use_tau_symmetry: true
+  tower_hidden_units:
+  - 128
+  - 64
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+UniMixer_Taobao_Action:
+  model: UniMixer
+  dataset_id: Taobao_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  num_tasks: 4
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 256
+  num_tokens: 4
+  num_basis: 8
+  global_rank: 64
+  sinkhorn_iter: 5
+  sinkhorn_eps: 1.0e-06
+  tau: 1.0
+  tau_end: 0.05
+  tau_schedule: linear
+  tau_anneal_steps: 20000
+  tau_warmup_steps: 1000
+  use_out_proj: false
+  use_local_coef_softmax: true
+  use_tau_symmetry: true
+  tower_hidden_units:
+  - 128
+  - 64
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+UniMixer_MerRec_Action:
+  model: UniMixer
+  dataset_id: MerRec_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  num_tasks: 5
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 256
+  num_tokens: 4
+  num_basis: 8
+  global_rank: 64
+  sinkhorn_iter: 5
+  sinkhorn_eps: 1.0e-06
+  tau: 1.0
+  tau_end: 0.05
+  tau_schedule: linear
+  tau_anneal_steps: 20000
+  tau_warmup_steps: 1000
+  use_out_proj: false
+  use_local_coef_softmax: true
+  use_tau_symmetry: true
+  tower_hidden_units:
+  - 128
+  - 64
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+OneTrans_QK_Video_Action:
+  model: OneTrans
+  dataset_id: QK_Video_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 4
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Auto
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+OneTrans_KuaiRand_Video_Action:
+  model: OneTrans
+  dataset_id: KuaiRand_Video_Action
+  loss: &id009
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics: &id010
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: &id011
+  - 128
+  - 64
+  num_tasks: 6
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Auto
+  attention_activation_type: SoftMax
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: &id012
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+OneTrans_KuaiRand_Video_Action_Ablation_TokenDim_Tiny:
+  model: OneTrans
+  dataset_id: KuaiRand_Video_Action
+  loss: *id009
+  metrics: *id010
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: *id011
+  num_tasks: 6
+  num_layers: 2
+  num_heads: 2
+  token_dim: 32
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Auto
+  attention_activation_type: SoftMax
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id012
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+OneTrans_KuaiRand_Video_Action_Ablation_TokenDim_Small:
+  model: OneTrans
+  dataset_id: KuaiRand_Video_Action
+  loss: *id009
+  metrics: *id010
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: *id011
+  num_tasks: 6
+  num_layers: 2
+  num_heads: 2
+  token_dim: 64
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Auto
+  attention_activation_type: SoftMax
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id012
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+OneTrans_KuaiRand_Video_Action_Ablation_TokenDim_Mid:
+  model: OneTrans
+  dataset_id: KuaiRand_Video_Action
+  loss: *id009
+  metrics: *id010
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: *id011
+  num_tasks: 6
+  num_layers: 2
+  num_heads: 2
+  token_dim: 128
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Auto
+  attention_activation_type: SoftMax
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id012
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+OneTrans_KuaiRand_Video_Action_Ablation_TokenDim_Large:
+  model: OneTrans
+  dataset_id: KuaiRand_Video_Action
+  loss: *id009
+  metrics: *id010
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: *id011
+  num_tasks: 6
+  num_layers: 2
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Auto
+  attention_activation_type: SoftMax
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id012
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+OneTrans_KuaiRand_Video_Action_Ablation_TokenDim_Ultra:
+  model: OneTrans
+  dataset_id: KuaiRand_Video_Action
+  loss: *id009
+  metrics: *id010
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: *id011
+  num_tasks: 6
+  num_layers: 2
+  num_heads: 2
+  token_dim: 512
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Auto
+  attention_activation_type: SoftMax
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id012
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+OneTrans_KuaiRand_Video_Action_Ablation_MaxLen_Tiny:
+  model: OneTrans
+  dataset_id: KuaiRand_Video_Action
+  loss: *id009
+  metrics: *id010
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: *id011
+  num_tasks: 6
+  num_layers: 2
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Auto
+  attention_activation_type: SoftMax
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id012
+  monitor_mode: max
+  max_len: 32
+  accumulation_steps: 1
+OneTrans_KuaiRand_Video_Action_Ablation_MaxLen_Small:
+  model: OneTrans
+  dataset_id: KuaiRand_Video_Action
+  loss: *id009
+  metrics: *id010
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: *id011
+  num_tasks: 6
+  num_layers: 2
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Auto
+  attention_activation_type: SoftMax
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id012
+  monitor_mode: max
+  max_len: 64
+  accumulation_steps: 1
+OneTrans_KuaiRand_Video_Action_Ablation_MaxLen_Mid:
+  model: OneTrans
+  dataset_id: KuaiRand_Video_Action
+  loss: *id009
+  metrics: *id010
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: *id011
+  num_tasks: 6
+  num_layers: 2
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Auto
+  attention_activation_type: SoftMax
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id012
+  monitor_mode: max
+  max_len: 128
+  accumulation_steps: 1
+OneTrans_KuaiRand_Video_Action_Ablation_MaxLen_Large:
+  model: OneTrans
+  dataset_id: KuaiRand_Video_Action
+  loss: *id009
+  metrics: *id010
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: *id011
+  num_tasks: 6
+  num_layers: 2
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Auto
+  attention_activation_type: SoftMax
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id012
+  monitor_mode: max
+  max_len: 256
+  accumulation_steps: 1
+OneTrans_KuaiRand_Video_Action_Ablation_MaxLen_Ultra:
+  model: OneTrans
+  dataset_id: KuaiRand_Video_Action
+  loss: *id009
+  metrics: *id010
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: *id011
+  num_tasks: 6
+  num_layers: 2
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Auto
+  attention_activation_type: SoftMax
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id012
+  monitor_mode: max
+  max_len: 512
+  accumulation_steps: 1
+OneTrans_KuaiRand_Video_Action_Ablation_NumLayers_Small:
+  model: OneTrans
+  dataset_id: KuaiRand_Video_Action
+  loss: *id009
+  metrics: *id010
+  task: binary_classification
+  batch_size: 2048
+  embedding_dim: 16
+  tower_hidden_units: *id011
+  num_tasks: 6
+  num_layers: 2
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Auto
+  attention_activation_type: SoftMax
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id012
+  monitor_mode: max
+  max_len: 1024
+  accumulation_steps: 4
+OneTrans_KuaiRand_Video_Action_Ablation_NumLayers_Mid:
+  model: OneTrans
+  dataset_id: KuaiRand_Video_Action
+  loss: *id009
+  metrics: *id010
+  task: binary_classification
+  batch_size: 2048
+  embedding_dim: 16
+  tower_hidden_units: *id011
+  num_tasks: 6
+  num_layers: 4
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Auto
+  attention_activation_type: SoftMax
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id012
+  monitor_mode: max
+  max_len: 1024
+  accumulation_steps: 4
+OneTrans_KuaiRand_Video_Action_Ablation_NumLayers_Large:
+  model: OneTrans
+  dataset_id: KuaiRand_Video_Action
+  loss: *id009
+  metrics: *id010
+  task: binary_classification
+  batch_size: 2048
+  embedding_dim: 16
+  tower_hidden_units: *id011
+  num_tasks: 6
+  num_layers: 8
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  reduction_ratio: 0.3
+  tokenizer_type: Auto
+  attention_activation_type: SoftMax
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id012
+  monitor_mode: max
+  max_len: 1024
+  accumulation_steps: 4
+OneTrans_KuaiRand_Video_Action_Tokenizer_Chunk:
+  model: OneTrans
+  dataset_id: KuaiRand_Video_Action
+  loss: *id009
+  metrics: *id010
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: *id011
+  num_tasks: 6
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Chunk
+  attention_activation_type: SoftMax
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id012
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+OneTrans_KuaiRand_Video_Action_Tokenizer_Field:
+  model: OneTrans
+  dataset_id: KuaiRand_Video_Action
+  loss: *id009
+  metrics: *id010
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: *id011
+  num_tasks: 6
+  num_layers: 3
+  num_heads: 2
+  token_dim: 128
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Field
+  attention_activation_type: SoftMax
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id012
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+OneTrans_KuaiRand_Video_Action_Tokenizer_Random:
+  model: OneTrans
+  dataset_id: KuaiRand_Video_Action
+  loss: *id009
+  metrics: *id010
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: *id011
+  num_tasks: 6
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Random
+  attention_activation_type: SoftMax
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id012
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+OneTrans_KuaiRand_Video_Action_AttentionActivation_None:
+  model: OneTrans
+  dataset_id: KuaiRand_Video_Action
+  loss: *id009
+  metrics: *id010
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: *id011
+  num_tasks: 6
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Auto
+  attention_activation_type: None
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id012
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+OneTrans_KuaiRand_Video_Action_AttentionActivation_ReLU:
+  model: OneTrans
+  dataset_id: KuaiRand_Video_Action
+  loss: *id009
+  metrics: *id010
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: *id011
+  num_tasks: 6
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Auto
+  attention_activation_type: ReLU
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id012
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+OneTrans_KuaiRand_Video_Action_AttentionActivation_SoftPlus:
+  model: OneTrans
+  dataset_id: KuaiRand_Video_Action
+  loss: *id009
+  metrics: *id010
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: *id011
+  num_tasks: 6
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Auto
+  attention_activation_type: SoftPlus
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id012
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+OneTrans_KuaiRand_Video_Action_AttentionActivation_SiLU:
+  model: OneTrans
+  dataset_id: KuaiRand_Video_Action
+  loss: *id009
+  metrics: *id010
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: *id011
+  num_tasks: 6
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Auto
+  attention_activation_type: SiLU
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id012
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+OneTrans_KuaiRand_Video_Action_AttentionActivation_GeLU:
+  model: OneTrans
+  dataset_id: KuaiRand_Video_Action
+  loss: *id009
+  metrics: *id010
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: *id011
+  num_tasks: 6
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Auto
+  attention_activation_type: GeLU
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id012
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+OneTrans_KuaiRand_Video_Action_AttentionActivation_Sigmoid:
+  model: OneTrans
+  dataset_id: KuaiRand_Video_Action
+  loss: *id009
+  metrics: *id010
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: *id011
+  num_tasks: 6
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Auto
+  attention_activation_type: Sigmoid
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id012
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+OneTrans_KuaiRand_Video_Action_AttentionActivation_Mish:
+  model: OneTrans
+  dataset_id: KuaiRand_Video_Action
+  loss: *id009
+  metrics: *id010
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: *id011
+  num_tasks: 6
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Auto
+  attention_activation_type: Mish
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id012
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+OneTrans_TencentGR_10M_Action:
+  model: OneTrans
+  dataset_id: TencentGR_10M_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 2
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Auto
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+OneTrans_Taobao_Action:
+  model: OneTrans
+  dataset_id: Taobao_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 4
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Auto
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+OneTrans_MerRec_Action:
+  model: OneTrans
+  dataset_id: MerRec_Action
+  loss: &id013
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics: &id014
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: &id015
+  - 128
+  - 64
+  num_tasks: 5
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Auto
+  attention_activation_type: SoftMax
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: &id016
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+OneTrans_MerRec_Action_Tokenizer_Chunk:
+  model: OneTrans
+  dataset_id: MerRec_Action
+  loss: *id013
+  metrics: *id014
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: *id015
+  num_tasks: 5
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Chunk
+  attention_activation_type: SoftMax
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id016
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+OneTrans_MerRec_Action_Tokenizer_Field:
+  model: OneTrans
+  dataset_id: MerRec_Action
+  loss: *id013
+  metrics: *id014
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: *id015
+  num_tasks: 5
+  num_layers: 3
+  num_heads: 2
+  token_dim: 128
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Field
+  attention_activation_type: SoftMax
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id016
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+OneTrans_MerRec_Action_Tokenizer_Random:
+  model: OneTrans
+  dataset_id: MerRec_Action
+  loss: *id013
+  metrics: *id014
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: *id015
+  num_tasks: 5
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Random
+  attention_activation_type: SoftMax
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id016
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+OneTrans_MerRec_Action_AttentionActivation_None:
+  model: OneTrans
+  dataset_id: MerRec_Action
+  loss: *id013
+  metrics: *id014
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: *id015
+  num_tasks: 5
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Auto
+  attention_activation_type: None
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id016
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+OneTrans_MerRec_Action_AttentionActivation_ReLU:
+  model: OneTrans
+  dataset_id: MerRec_Action
+  loss: *id013
+  metrics: *id014
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: *id015
+  num_tasks: 5
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Auto
+  attention_activation_type: ReLU
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id016
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+OneTrans_MerRec_Action_AttentionActivation_SoftPlus:
+  model: OneTrans
+  dataset_id: MerRec_Action
+  loss: *id013
+  metrics: *id014
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: *id015
+  num_tasks: 5
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Auto
+  attention_activation_type: SoftPlus
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id016
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+OneTrans_MerRec_Action_AttentionActivation_SiLU:
+  model: OneTrans
+  dataset_id: MerRec_Action
+  loss: *id013
+  metrics: *id014
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: *id015
+  num_tasks: 5
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Auto
+  attention_activation_type: SiLU
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id016
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+OneTrans_MerRec_Action_AttentionActivation_GeLU:
+  model: OneTrans
+  dataset_id: MerRec_Action
+  loss: *id013
+  metrics: *id014
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: *id015
+  num_tasks: 5
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Auto
+  attention_activation_type: GeLU
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id016
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+OneTrans_MerRec_Action_AttentionActivation_Sigmoid:
+  model: OneTrans
+  dataset_id: MerRec_Action
+  loss: *id013
+  metrics: *id014
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: *id015
+  num_tasks: 5
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Auto
+  attention_activation_type: Sigmoid
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id016
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+OneTrans_MerRec_Action_AttentionActivation_Mish:
+  model: OneTrans
+  dataset_id: MerRec_Action
+  loss: *id013
+  metrics: *id014
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: *id015
+  num_tasks: 5
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  reduction_ratio: 0.5
+  tokenizer_type: Auto
+  attention_activation_type: Mish
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: *id016
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+HyFormer_QK_Video_Action:
+  model: HyFormer
+  dataset_id: QK_Video_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 4
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  num_global_token: 2
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+HyFormer_KuaiRand_Video_Action:
+  model: HyFormer
+  dataset_id: KuaiRand_Video_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 6
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  num_global_token: 2
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+HyFormer_TencentGR_10M_Action:
+  model: HyFormer
+  dataset_id: TencentGR_10M_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 2
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  num_global_token: 2
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+HyFormer_Taobao_Action:
+  model: HyFormer
+  dataset_id: Taobao_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 4
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  num_global_token: 2
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+HyFormer_MerRec_Action:
+  model: HyFormer
+  dataset_id: MerRec_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 5
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  num_ns_token: 4
+  num_global_token: 2
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+MixFormer_QK_Video_Action:
+  model: MixFormer
+  dataset_id: QK_Video_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 4
+  num_layers: 3
+  token_dim: 256
+  num_ns_token: 4
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+MixFormer_KuaiRand_Video_Action:
+  model: MixFormer
+  dataset_id: KuaiRand_Video_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 6
+  num_layers: 3
+  token_dim: 256
+  num_ns_token: 4
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+MixFormer_TencentGR_10M_Action:
+  model: MixFormer
+  dataset_id: TencentGR_10M_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 2
+  num_layers: 3
+  token_dim: 256
+  num_ns_token: 4
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+MixFormer_Taobao_Action:
+  model: MixFormer
+  dataset_id: Taobao_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 4
+  num_layers: 3
+  token_dim: 256
+  num_ns_token: 4
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+MixFormer_MerRec_Action:
+  model: MixFormer
+  dataset_id: MerRec_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 5
+  num_layers: 3
+  token_dim: 256
+  num_ns_token: 4
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+TokenMixer_QK_Video_Action:
+  model: TokenMixer
+  dataset_id: QK_Video_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  num_tasks: 4
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 256
+  num_group_token: 4
+  tower_hidden_units:
+  - 128
+  - 64
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+TokenMixer_KuaiRand_Video_Action:
+  model: TokenMixer
+  dataset_id: KuaiRand_Video_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  num_tasks: 6
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 256
+  num_group_token: 4
+  tower_hidden_units:
+  - 128
+  - 64
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+TokenMixer_TencentGR_10M_Action:
+  model: TokenMixer
+  dataset_id: TencentGR_10M_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  num_tasks: 2
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 256
+  num_group_token: 4
+  tower_hidden_units:
+  - 128
+  - 64
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+TokenMixer_Taobao_Action:
+  model: TokenMixer
+  dataset_id: Taobao_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  num_tasks: 4
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 256
+  num_group_token: 4
+  tower_hidden_units:
+  - 128
+  - 64
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+TokenMixer_MerRec_Action:
+  model: TokenMixer
+  dataset_id: MerRec_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  num_tasks: 5
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 256
+  num_group_token: 4
+  tower_hidden_units:
+  - 128
+  - 64
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+HiFormer_QK_Video_Action:
+  model: HiFormer
+  dataset_id: QK_Video_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  num_tasks: 4
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 256
+  num_heads: 2
+  qkv_rank: 256
+  tower_hidden_units:
+  - 128
+  - 64
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+HiFormer_KuaiRand_Video_Action:
+  model: HiFormer
+  dataset_id: KuaiRand_Video_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  num_tasks: 6
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 256
+  num_heads: 2
+  qkv_rank: 256
+  tower_hidden_units:
+  - 128
+  - 64
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+HiFormer_TencentGR_10M_Action:
+  model: HiFormer
+  dataset_id: TencentGR_10M_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  num_tasks: 2
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 256
+  num_heads: 2
+  qkv_rank: 256
+  tower_hidden_units:
+  - 128
+  - 64
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+HiFormer_Taobao_Action:
+  model: HiFormer
+  dataset_id: Taobao_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  num_tasks: 4
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 256
+  num_heads: 2
+  qkv_rank: 256
+  tower_hidden_units:
+  - 128
+  - 64
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+HiFormer_MerRec_Action:
+  model: HiFormer
+  dataset_id: MerRec_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  num_tasks: 5
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  token_dim: 256
+  num_heads: 2
+  qkv_rank: 256
+  tower_hidden_units:
+  - 128
+  - 64
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+INFNet_QK_Video_Action:
+  model: INFNet
+  dataset_id: QK_Video_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 4
+  num_layers: 3
+  token_dim: 256
+  num_c_hub_token: 4
+  num_t_hub_token: 2
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+INFNet_KuaiRand_Video_Action:
+  model: INFNet
+  dataset_id: KuaiRand_Video_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 6
+  num_layers: 3
+  token_dim: 256
+  num_c_hub_token: 4
+  num_t_hub_token: 2
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+INFNet_TencentGR_10M_Action:
+  model: INFNet
+  dataset_id: TencentGR_10M_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 2
+  num_layers: 3
+  token_dim: 256
+  num_c_hub_token: 4
+  num_t_hub_token: 2
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+INFNet_Taobao_Action:
+  model: INFNet
+  dataset_id: Taobao_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 4
+  num_layers: 3
+  token_dim: 256
+  num_c_hub_token: 4
+  num_t_hub_token: 2
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+INFNet_MerRec_Action:
+  model: INFNet
+  dataset_id: MerRec_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 5
+  num_layers: 3
+  token_dim: 256
+  num_c_hub_token: 4
+  num_t_hub_token: 2
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+EST_QK_Video_Action:
+  model: EST
+  dataset_id: QK_Video_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 4
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+EST_KuaiRand_Video_Action:
+  model: EST
+  dataset_id: KuaiRand_Video_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 6
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+EST_TencentGR_10M_Action:
+  model: EST
+  dataset_id: TencentGR_10M_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 2
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+EST_Taobao_Action:
+  model: EST
+  dataset_id: Taobao_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 4
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+EST_MerRec_Action:
+  model: EST
+  dataset_id: MerRec_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 5
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+LONGER_QK_Video_Action:
+  model: LONGER
+  dataset_id: QK_Video_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 4
+  num_ns_token: 4
+  num_groups: 4
+  query_size: 10
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+LONGER_KuaiRand_Video_Action:
+  model: LONGER
+  dataset_id: KuaiRand_Video_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 6
+  num_ns_token: 4
+  num_groups: 4
+  query_size: 10
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+LONGER_TencentGR_10M_Action:
+  model: LONGER
+  dataset_id: TencentGR_10M_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 2
+  num_ns_token: 4
+  num_groups: 4
+  query_size: 10
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+LONGER_Taobao_Action:
+  model: LONGER
+  dataset_id: Taobao_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 4
+  num_ns_token: 4
+  num_groups: 4
+  query_size: 10
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+LONGER_MerRec_Action:
+  model: LONGER
+  dataset_id: MerRec_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 5
+  num_ns_token: 4
+  num_groups: 4
+  query_size: 10
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+Zenith_QK_Video_Action:
+  model: Zenith
+  dataset_id: QK_Video_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  num_tasks: 4
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  id_dim: 48
+  token_dim: 256
+  num_token: 2
+  tower_hidden_units:
+  - 128
+  - 64
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+Zenith_KuaiRand_Video_Action:
+  model: Zenith
+  dataset_id: KuaiRand_Video_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  num_tasks: 6
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  id_dim: 48
+  token_dim: 256
+  num_token: 2
+  tower_hidden_units:
+  - 128
+  - 64
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+Zenith_TencentGR_10M_Action:
+  model: Zenith
+  dataset_id: TencentGR_10M_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  num_tasks: 2
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  id_dim: 48
+  token_dim: 256
+  num_token: 2
+  tower_hidden_units:
+  - 128
+  - 64
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+Zenith_Taobao_Action:
+  model: Zenith
+  dataset_id: Taobao_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  num_tasks: 4
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  id_dim: 48
+  token_dim: 256
+  num_token: 2
+  tower_hidden_units:
+  - 128
+  - 64
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+Zenith_MerRec_Action:
+  model: Zenith
+  dataset_id: MerRec_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  num_tasks: 5
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  num_layers: 3
+  expansion_factor: 2
+  id_dim: 48
+  token_dim: 256
+  num_token: 2
+  tower_hidden_units:
+  - 128
+  - 64
+  tower_activations: ReLU
+  attention_dropout: 0
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+HeMix_QK_Video_Action:
+  model: HeMix
+  dataset_id: QK_Video_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 4
+  num_layers: 3
+  token_dim: 256
+  num_glocal_token: 2
+  num_real_token: 2
+  num_mix_heads: 2
+  low_rank_dim: 16
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  real_seq_len: 20
+  accumulation_steps: 1
+HeMix_KuaiRand_Video_Action:
+  model: HeMix
+  dataset_id: KuaiRand_Video_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 6
+  num_layers: 3
+  token_dim: 256
+  num_glocal_token: 2
+  num_real_token: 2
+  num_mix_heads: 2
+  low_rank_dim: 16
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  real_seq_len: 20
+  accumulation_steps: 1
+HeMix_TencentGR_10M_Action:
+  model: HeMix
+  dataset_id: TencentGR_10M_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 2
+  num_layers: 3
+  token_dim: 256
+  num_glocal_token: 2
+  num_real_token: 2
+  num_mix_heads: 2
+  low_rank_dim: 16
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  real_seq_len: 20
+  accumulation_steps: 1
+HeMix_Taobao_Action:
+  model: HeMix
+  dataset_id: Taobao_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 4
+  num_layers: 3
+  token_dim: 256
+  num_glocal_token: 2
+  num_real_token: 2
+  num_mix_heads: 2
+  low_rank_dim: 16
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  real_seq_len: 20
+  accumulation_steps: 1
+HeMix_MerRec_Action:
+  model: HeMix
+  dataset_id: MerRec_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 5
+  num_layers: 3
+  token_dim: 256
+  num_glocal_token: 2
+  num_real_token: 2
+  num_mix_heads: 2
+  low_rank_dim: 16
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  real_seq_len: 20
+  accumulation_steps: 1
+TokenFormer_QK_Video_Action:
+  model: TokenFormer
+  dataset_id: QK_Video_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 4
+  num_full_layers: 2
+  window_size:
+  - 16
+  num_heads: 2
+  token_dim: 256
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+TokenFormer_KuaiRand_Video_Action:
+  model: TokenFormer
+  dataset_id: KuaiRand_Video_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 6
+  num_full_layers: 2
+  window_size:
+  - 16
+  num_heads: 2
+  token_dim: 256
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+TokenFormer_TencentGR_10M_Action:
+  model: TokenFormer
+  dataset_id: TencentGR_10M_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 2
+  num_full_layers: 2
+  window_size:
+  - 16
+  num_heads: 2
+  token_dim: 256
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+TokenFormer_Taobao_Action:
+  model: TokenFormer
+  dataset_id: Taobao_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 4
+  num_full_layers: 2
+  window_size:
+  - 16
+  num_heads: 2
+  token_dim: 256
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+  enable_torch_compile: false
+TokenFormer_MerRec_Action:
+  model: TokenFormer
+  dataset_id: MerRec_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 5
+  num_full_layers: 2
+  window_size:
+  - 16
+  num_heads: 2
+  token_dim: 256
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+UltraHSTU_QK_Video_Action:
+  model: UltraHSTU
+  dataset_id: QK_Video_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 4
+  truncation_start_layer: 2
+  truncation_ratio: 0.5
+  k1:
+  - 32
+  - 32
+  - 16
+  k2:
+  - 20
+  - 10
+  - 10
+  num_heads: 1
+  token_dim: 256
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+UltraHSTU_KuaiRand_Video_Action:
+  model: UltraHSTU
+  dataset_id: KuaiRand_Video_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 6
+  truncation_start_layer: 2
+  truncation_ratio: 0.5
+  k1:
+  - 32
+  - 32
+  - 16
+  k2:
+  - 20
+  - 20
+  - 10
+  num_heads: 2
+  token_dim: 256
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+UltraHSTU_TencentGR_10M_Action:
+  model: UltraHSTU
+  dataset_id: TencentGR_10M_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 2
+  truncation_start_layer: 2
+  truncation_ratio: 0.5
+  k1:
+  - 32
+  - 32
+  - 16
+  k2:
+  - 20
+  - 20
+  - 10
+  num_heads: 2
+  token_dim: 256
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+UltraHSTU_Taobao_Action:
+  model: UltraHSTU
+  dataset_id: Taobao_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 4
+  truncation_start_layer: 2
+  truncation_ratio: 0.5
+  k1:
+  - 32
+  - 32
+  - 16
+  k2:
+  - 20
+  - 10
+  - 10
+  num_heads: 1
+  token_dim: 256
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+UltraHSTU_MerRec_Action:
+  model: UltraHSTU
+  dataset_id: MerRec_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  num_tasks: 5
+  truncation_start_layer: 2
+  truncation_ratio: 0.5
+  k1:
+  - 32
+  - 32
+  - 16
+  k2:
+  - 20
+  - 10
+  - 10
+  num_heads: 1
+  token_dim: 256
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+SSR_QK_Video_Action:
+  model: SSR
+  dataset_id: QK_Video_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  attention_dropout: 0
+  num_tasks: 4
+  num_layers: 3
+  num_iters: 5
+  init_alpha: 0.1
+  token_dim: 256
+  num_ns_token: 4
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+SSR_KuaiRand_Video_Action:
+  model: SSR
+  dataset_id: KuaiRand_Video_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  attention_dropout: 0
+  num_tasks: 6
+  num_layers: 3
+  num_iters: 5
+  init_alpha: 0.1
+  token_dim: 256
+  num_ns_token: 4
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+SSR_TencentGR_10M_Action:
+  model: SSR
+  dataset_id: TencentGR_10M_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  attention_dropout: 0
+  num_tasks: 2
+  num_layers: 3
+  num_iters: 5
+  init_alpha: 0.1
+  token_dim: 256
+  num_ns_token: 4
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+SSR_Taobao_Action:
+  model: SSR
+  dataset_id: Taobao_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  attention_dropout: 0
+  num_tasks: 4
+  num_layers: 3
+  num_iters: 5
+  init_alpha: 0.1
+  token_dim: 256
+  num_ns_token: 4
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+SSR_MerRec_Action:
+  model: SSR
+  dataset_id: MerRec_Action
+  loss:
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  - binary_crossentropy
+  metrics:
+  - logloss
+  - AUC
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units:
+  - 128
+  - 64
+  attention_dropout: 0
+  num_tasks: 5
+  num_layers: 3
+  num_iters: 5
+  init_alpha: 0.1
+  token_dim: 256
+  num_ns_token: 4
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor:
+    AUC: 1
+    logloss: 0
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1

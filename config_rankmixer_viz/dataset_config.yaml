@@ -1,0 +1,769 @@
+KuaiRand_Video_Action:
+  block_cache_size: 2
+  blocked: true
+  data_format: parquet
+  data_root: /home/HugoChinn/LoopMT/UniRank/data/preprocessed
+  feature_cols:
+  - active: true
+    dtype: int
+    name: user_index
+    type: meta
+  - active: true
+    dtype: int
+    name: item_index
+    type: meta
+  - active: true
+    dtype: int
+    name: seq_len
+    type: meta
+  - active: true
+    dtype: int
+    name: user_id
+    type: categorical
+    vocab_size: 27286
+  - active: true
+    dtype: int
+    name: item_id
+    source: item
+    type: categorical
+    vocab_size: 32038726
+  - active: true
+    dtype: int
+    name: video_type
+    source: item
+    type: categorical
+    vocab_size: 4
+  - active: true
+    dtype: int
+    name: primary_tag
+    source: item
+    type: categorical
+    vocab_size: 60
+  - active: true
+    dtype: int
+    name: music_type
+    source: item
+    type: categorical
+    vocab_size: 8
+  - active: true
+    dtype: int
+    name: duration_bucket
+    source: item
+    type: categorical
+    vocab_size: 8
+  - active: true
+    dtype: int
+    name: user_active_degree
+    type: categorical
+    vocab_size: 11
+  - active: true
+    dtype: int
+    name: is_lowactive_period
+    type: categorical
+    vocab_size: 3
+  - active: true
+    dtype: int
+    name: is_live_streamer
+    type: categorical
+    vocab_size: 4
+  - active: true
+    dtype: int
+    name: is_video_author
+    type: categorical
+    vocab_size: 4
+  - active: true
+    dtype: int
+    name: follow_user_num_range
+    type: categorical
+    vocab_size: 10
+  - active: true
+    dtype: int
+    name: fans_user_num_range
+    type: categorical
+    vocab_size: 11
+  - active: true
+    dtype: int
+    name: friend_user_num_range
+    type: categorical
+    vocab_size: 9
+  - active: true
+    dtype: int
+    name: register_days_range
+    type: categorical
+    vocab_size: 10
+  - active: true
+    dtype: int
+    name: onehot_feat0
+    type: categorical
+    vocab_size: 4
+  - active: true
+    dtype: int
+    name: onehot_feat1
+    type: categorical
+    vocab_size: 9
+  - active: true
+    dtype: int
+    name: onehot_feat2
+    type: categorical
+    vocab_size: 52
+  - active: true
+    dtype: int
+    name: onehot_feat3
+    type: categorical
+    vocab_size: 1473
+  - active: true
+    dtype: int
+    name: onehot_feat4
+    type: categorical
+    vocab_size: 18
+  - active: true
+    dtype: int
+    name: onehot_feat5
+    type: categorical
+    vocab_size: 36
+  - active: true
+    dtype: int
+    name: onehot_feat6
+    type: categorical
+    vocab_size: 5
+  - active: true
+    dtype: int
+    name: onehot_feat7
+    type: categorical
+    vocab_size: 120
+  - active: true
+    dtype: int
+    name: onehot_feat8
+    type: categorical
+    vocab_size: 456
+  - active: true
+    dtype: int
+    name: onehot_feat9
+    type: categorical
+    vocab_size: 9
+  - active: true
+    dtype: int
+    name: onehot_feat10
+    type: categorical
+    vocab_size: 7
+  - active: true
+    dtype: int
+    name: onehot_feat11
+    type: categorical
+    vocab_size: 7
+  - active: true
+    dtype: int
+    name: onehot_feat12
+    type: categorical
+    vocab_size: 5
+  - active: true
+    dtype: int
+    name: onehot_feat13
+    type: categorical
+    vocab_size: 5
+  - active: true
+    dtype: int
+    name: onehot_feat14
+    type: categorical
+    vocab_size: 5
+  - active: true
+    dtype: int
+    name: onehot_feat15
+    type: categorical
+    vocab_size: 5
+  - active: true
+    dtype: int
+    name: onehot_feat16
+    type: categorical
+    vocab_size: 5
+  - active: true
+    dtype: int
+    name: onehot_feat17
+    type: categorical
+    vocab_size: 5
+  - active: true
+    dtype: int
+    name: tab
+    type: categorical
+    vocab_size: 16
+  - active: true
+    dtype: int
+    name: day_of_week
+    type: categorical
+    vocab_size: 8
+  - active: true
+    dtype: int
+    name: is_weekend
+    type: categorical
+    vocab_size: 3
+  - active: true
+    dtype: int
+    name: hour
+    type: categorical
+    vocab_size: 25
+  - active: true
+    dtype: int
+    name: action
+    source: action
+    type: categorical
+    vocab_size: 65
+  label_col:
+  - dtype: float
+    name: is_click
+  - dtype: float
+    name: is_follow
+  - dtype: float
+    name: is_like
+  - dtype: float
+    name: is_comment
+  - dtype: float
+    name: is_forward
+  - dtype: float
+    name: long_view
+  rebuild_dataset: false
+  test_data: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/KuaiRand_Video_Action/test/data
+  test_item_info: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/KuaiRand_Video_Action/test/item_info
+  test_user_info: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/KuaiRand_Video_Action/test/user_info
+  train_data: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/KuaiRand_Video_Action/train/data
+  train_item_info: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/KuaiRand_Video_Action/train/item_info
+  train_user_info: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/KuaiRand_Video_Action/train/user_info
+  valid_data: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/KuaiRand_Video_Action/valid/data
+  valid_item_info: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/KuaiRand_Video_Action/valid/item_info
+  valid_user_info: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/KuaiRand_Video_Action/valid/user_info
+MerRec_Action:
+  block_cache_size: 2
+  blocked: true
+  data_format: parquet
+  data_root: /home/HugoChinn/LoopMT/UniRank/data/preprocessed
+  feature_cols:
+  - active: true
+    dtype: int
+    name: user_index
+    type: meta
+  - active: true
+    dtype: int
+    name: item_index
+    type: meta
+  - active: true
+    dtype: int
+    name: seq_len
+    type: meta
+  - active: true
+    dtype: int
+    name: user_id
+    type: categorical
+    vocab_size: 1697916
+  - active: true
+    dtype: int
+    name: item_id
+    source: item
+    type: categorical
+    vocab_size: 43817684
+  - active: true
+    dtype: int
+    name: product_id
+    source: item
+    type: categorical
+    vocab_size: 893620
+  - active: true
+    dtype: int
+    name: price_bucket
+    source: item
+    type: categorical
+    vocab_size: 10
+  - active: true
+    dtype: int
+    name: c0_id
+    source: item
+    type: categorical
+    vocab_size: 18
+  - active: true
+    dtype: int
+    name: c1_id
+    source: item
+    type: categorical
+    vocab_size: 310
+  - active: true
+    dtype: int
+    name: c2_id
+    source: item
+    type: categorical
+    vocab_size: 3042
+  - active: true
+    dtype: int
+    name: brand_id
+    source: item
+    type: categorical
+    vocab_size: 19783
+  - active: true
+    dtype: int
+    name: item_condition_id
+    source: item
+    type: categorical
+    vocab_size: 7
+  - active: true
+    dtype: int
+    name: size_id
+    source: item
+    type: categorical
+    vocab_size: 356
+  - active: true
+    dtype: int
+    name: shipper_id
+    source: item
+    type: categorical
+    vocab_size: 3
+  - active: true
+    dtype: int
+    name: color
+    source: item
+    type: categorical
+    vocab_size: 7311
+  - active: true
+    dtype: int
+    name: session_id
+    type: categorical
+    vocab_size: 3701837
+  - active: true
+    dtype: int
+    name: day_of_week
+    type: categorical
+    vocab_size: 8
+  - active: true
+    dtype: int
+    name: is_weekend
+    type: categorical
+    vocab_size: 3
+  - active: true
+    dtype: int
+    name: hour
+    type: categorical
+    vocab_size: 25
+  - active: true
+    dtype: int
+    name: action
+    source: action
+    type: categorical
+    vocab_size: 33
+  label_col:
+  - dtype: float
+    name: Like
+  - dtype: float
+    name: Cart
+  - dtype: float
+    name: Offer
+  - dtype: float
+    name: Checkout
+  - dtype: float
+    name: Purchase
+  rebuild_dataset: false
+  test_data: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/MerRec_Action/test/data
+  test_item_info: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/MerRec_Action/test/item_info
+  test_user_info: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/MerRec_Action/test/user_info
+  train_data: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/MerRec_Action/train/data
+  train_item_info: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/MerRec_Action/train/item_info
+  train_user_info: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/MerRec_Action/train/user_info
+  valid_data: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/MerRec_Action/valid/data
+  valid_item_info: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/MerRec_Action/valid/item_info
+  valid_user_info: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/MerRec_Action/valid/user_info
+QK_Video_Action:
+  block_cache_size: 2
+  blocked: true
+  data_format: parquet
+  data_root: /home/HugoChinn/LoopMT/UniRank/data/preprocessed
+  feature_cols:
+  - active: true
+    dtype: int
+    name: user_index
+    type: meta
+  - active: true
+    dtype: int
+    name: item_index
+    type: meta
+  - active: true
+    dtype: int
+    name: seq_len
+    type: meta
+  - active: true
+    dtype: int
+    name: user_id
+    type: categorical
+    vocab_size: 4996177
+  - active: true
+    dtype: int
+    name: item_id
+    source: item
+    type: categorical
+    vocab_size: 3753437
+  - active: true
+    dtype: int
+    name: video_category
+    source: item
+    type: categorical
+    vocab_size: 5
+  - active: true
+    dtype: int
+    name: watching_times
+    type: categorical
+    vocab_size: 419
+  - active: true
+    dtype: int
+    name: gender
+    type: categorical
+    vocab_size: 5
+  - active: true
+    dtype: int
+    name: age
+    type: categorical
+    vocab_size: 10
+  - active: true
+    dtype: int
+    name: action
+    source: action
+    type: categorical
+    vocab_size: 17
+  label_col:
+  - dtype: float
+    name: click
+  - dtype: float
+    name: follow
+  - dtype: float
+    name: like
+  - dtype: float
+    name: share
+  rebuild_dataset: false
+  test_data: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/QK_Video_Action/test/data
+  test_item_info: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/QK_Video_Action/test/item_info
+  test_user_info: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/QK_Video_Action/test/user_info
+  train_data: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/QK_Video_Action/train/data
+  train_item_info: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/QK_Video_Action/train/item_info
+  train_user_info: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/QK_Video_Action/train/user_info
+  valid_data: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/QK_Video_Action/valid/data
+  valid_item_info: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/QK_Video_Action/valid/item_info
+  valid_user_info: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/QK_Video_Action/valid/user_info
+Taobao_Action:
+  block_cache_size: 2
+  blocked: true
+  data_format: parquet
+  data_root: /home/HugoChinn/LoopMT/UniRank/data/preprocessed
+  feature_cols:
+  - active: true
+    dtype: int
+    name: user_index
+    type: meta
+  - active: true
+    dtype: int
+    name: item_index
+    type: meta
+  - active: true
+    dtype: int
+    name: seq_len
+    type: meta
+  - active: true
+    dtype: int
+    name: user_id
+    type: categorical
+    vocab_size: 470571
+  - active: true
+    dtype: int
+    name: item_id
+    source: item
+    type: categorical
+    vocab_size: 846812
+  - active: true
+    dtype: int
+    name: cate_id
+    source: item
+    type: categorical
+    vocab_size: 6409
+  - active: true
+    dtype: int
+    name: campaign_id
+    source: item
+    type: categorical
+    vocab_size: 354106
+  - active: true
+    dtype: int
+    name: customer_id
+    source: item
+    type: categorical
+    vocab_size: 220826
+  - active: true
+    dtype: int
+    name: brand
+    source: item
+    type: categorical
+    vocab_size: 88145
+  - active: true
+    dtype: int
+    name: price_bucket
+    source: item
+    type: categorical
+    vocab_size: 11
+  - active: true
+    dtype: int
+    name: cms_segid
+    type: categorical
+    vocab_size: 99
+  - active: true
+    dtype: int
+    name: cms_group_id
+    type: categorical
+    vocab_size: 15
+  - active: true
+    dtype: int
+    name: final_gender_code
+    type: categorical
+    vocab_size: 4
+  - active: true
+    dtype: int
+    name: age_level
+    type: categorical
+    vocab_size: 9
+  - active: true
+    dtype: int
+    name: pvalue_level
+    type: categorical
+    vocab_size: 5
+  - active: true
+    dtype: int
+    name: shopping_level
+    type: categorical
+    vocab_size: 5
+  - active: true
+    dtype: int
+    name: occupation
+    type: categorical
+    vocab_size: 4
+  - active: true
+    dtype: int
+    name: new_user_class_level
+    type: categorical
+    vocab_size: 6
+  - active: true
+    dtype: int
+    name: pid
+    type: categorical
+    vocab_size: 4
+  - active: true
+    dtype: int
+    name: is_weekend
+    type: categorical
+    vocab_size: 3
+  - active: true
+    dtype: int
+    name: hour
+    type: categorical
+    vocab_size: 25
+  - active: true
+    dtype: int
+    name: action
+    source: action
+    type: categorical
+    vocab_size: 17
+  label_col:
+  - dtype: float
+    name: is_click
+  - dtype: float
+    name: cart
+  - dtype: float
+    name: fav
+  - dtype: float
+    name: buy
+  rebuild_dataset: false
+  test_data: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/Taobao_Action/test/data
+  test_item_info: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/Taobao_Action/test/item_info
+  test_user_info: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/Taobao_Action/test/user_info
+  train_data: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/Taobao_Action/train/data
+  train_item_info: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/Taobao_Action/train/item_info
+  train_user_info: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/Taobao_Action/train/user_info
+  valid_data: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/Taobao_Action/valid/data
+  valid_item_info: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/Taobao_Action/valid/item_info
+  valid_user_info: /home/HugoChinn/LoopMT/UniRank/data/preprocessed/Taobao_Action/valid/user_info
+TencentGR_10M_Action:
+  block_cache_size: 2
+  blocked: true
+  data_format: parquet
+  data_root: /home/HugoChinn/LoopMT/UniRank/data/TAAC2025
+  feature_cols:
+  - active: true
+    dtype: int
+    name: user_index
+    type: meta
+  - active: true
+    dtype: int
+    name: item_index
+    type: meta
+  - active: true
+    dtype: int
+    name: seq_len
+    type: meta
+  - active: true
+    dtype: int
+    name: user_id
+    type: categorical
+    vocab_size: 7706779
+  - active: true
+    dtype: int
+    name: item_id
+    source: item
+    type: categorical
+    vocab_size: 17487677
+  - active: true
+    dtype: int
+    name: '100'
+    source: item
+    type: categorical
+    vocab_size: 7
+  - active: true
+    dtype: int
+    name: '101'
+    source: item
+    type: categorical
+    vocab_size: 54
+  - active: true
+    dtype: int
+    name: '102'
+    source: item
+    type: categorical
+    vocab_size: 173463
+  - active: true
+    dtype: int
+    name: '112'
+    source: item
+    type: categorical
+    vocab_size: 31
+  - active: true
+    dtype: int
+    name: '114'
+    source: item
+    type: categorical
+    vocab_size: 34
+  - active: true
+    dtype: int
+    name: '115'
+    source: item
+    type: categorical
+    vocab_size: 989
+  - active: true
+    dtype: int
+    name: '116'
+    source: item
+    type: categorical
+    vocab_size: 21
+  - active: true
+    dtype: int
+    name: '117'
+    source: item
+    type: categorical
+    vocab_size: 559
+  - active: true
+    dtype: int
+    name: '118'
+    source: item
+    type: categorical
+    vocab_size: 1637
+  - active: true
+    dtype: int
+    name: '119'
+    source: item
+    type: categorical
+    vocab_size: 4951
+  - active: true
+    dtype: int
+    name: '120'
+    source: item
+    type: categorical
+    vocab_size: 4046
+  - active: true
+    dtype: int
+    name: '121'
+    source: item
+    type: categorical
+    vocab_size: 5041300
+  - active: true
+    dtype: int
+    name: '122'
+    source: item
+    type: categorical
+    vocab_size: 2389
+  - active: true
+    dtype: int
+    name: '103'
+    type: categorical
+    vocab_size: 88
+  - active: true
+    dtype: int
+    name: '104'
+    type: categorical
+    vocab_size: 4
+  - active: true
+    dtype: int
+    name: '105'
+    type: categorical
+    vocab_size: 8
+  - active: true
+    dtype: int
+    name: '109'
+    type: categorical
+    vocab_size: 4
+  - active: true
+    dtype: int
+    max_len: 5
+    name: '106'
+    type: sequence
+    vocab_size: 15
+  - active: true
+    dtype: int
+    max_len: 5
+    name: '107'
+    type: sequence
+    vocab_size: 20
+  - active: true
+    dtype: int
+    max_len: 5
+    name: '108'
+    type: sequence
+    vocab_size: 5
+  - active: true
+    dtype: int
+    max_len: 5
+    name: '110'
+    type: sequence
+    vocab_size: 3
+  - active: true
+    dtype: int
+    name: day_of_week
+    type: categorical
+    vocab_size: 8
+  - active: true
+    dtype: int
+    name: is_weekend
+    type: categorical
+    vocab_size: 3
+  - active: true
+    dtype: int
+    name: hour
+    type: categorical
+    vocab_size: 25
+  - active: true
+    dtype: int
+    name: action
+    source: action
+    type: categorical
+    vocab_size: 4
+  label_col:
+  - dtype: float
+    name: is_click
+  - dtype: float
+    name: is_conversion
+  rebuild_dataset: false
+  test_data: /home/HugoChinn/LoopMT/UniRank/data/TAAC2025/TencentGR_10M_Action/test/data
+  test_item_info: /home/HugoChinn/LoopMT/UniRank/data/TAAC2025/TencentGR_10M_Action/test/item_info
+  test_user_info: /home/HugoChinn/LoopMT/UniRank/data/TAAC2025/TencentGR_10M_Action/test/user_info
+  train_data: /home/HugoChinn/LoopMT/UniRank/data/TAAC2025/TencentGR_10M_Action/train/data
+  train_item_info: /home/HugoChinn/LoopMT/UniRank/data/TAAC2025/TencentGR_10M_Action/train/item_info
+  train_user_info: /home/HugoChinn/LoopMT/UniRank/data/TAAC2025/TencentGR_10M_Action/train/user_info
+  valid_data: /home/HugoChinn/LoopMT/UniRank/data/TAAC2025/TencentGR_10M_Action/valid/data
+  valid_item_info: /home/HugoChinn/LoopMT/UniRank/data/TAAC2025/TencentGR_10M_Action/valid/item_info
+  valid_user_info: /home/HugoChinn/LoopMT/UniRank/data/TAAC2025/TencentGR_10M_Action/valid/user_info

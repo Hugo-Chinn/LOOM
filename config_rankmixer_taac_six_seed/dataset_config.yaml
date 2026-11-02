@@ -1,0 +1,187 @@
+TencentGR_10M_Action:
+  data_root: /home/HugoChinn/LoopMT/UniRank/data/TAAC2025
+  data_format: parquet
+  train_data: /home/HugoChinn/LoopMT/UniRank/data/TAAC2025/TencentGR_10M_Action/train/data
+  valid_data: /home/HugoChinn/LoopMT/UniRank/data/TAAC2025/TencentGR_10M_Action/valid/data
+  test_data: /home/HugoChinn/LoopMT/UniRank/data/TAAC2025/TencentGR_10M_Action/test/data
+  train_user_info: /home/HugoChinn/LoopMT/UniRank/data/TAAC2025/TencentGR_10M_Action/train/user_info
+  train_item_info: /home/HugoChinn/LoopMT/UniRank/data/TAAC2025/TencentGR_10M_Action/train/item_info
+  valid_user_info: /home/HugoChinn/LoopMT/UniRank/data/TAAC2025/TencentGR_10M_Action/valid/user_info
+  valid_item_info: /home/HugoChinn/LoopMT/UniRank/data/TAAC2025/TencentGR_10M_Action/valid/item_info
+  test_user_info: /home/HugoChinn/LoopMT/UniRank/data/TAAC2025/TencentGR_10M_Action/test/user_info
+  test_item_info: /home/HugoChinn/LoopMT/UniRank/data/TAAC2025/TencentGR_10M_Action/test/item_info
+  rebuild_dataset: false
+  blocked: true
+  block_cache_size: 2
+  feature_cols:
+  - name: user_index
+    active: true
+    dtype: int
+    type: meta
+  - name: item_index
+    active: true
+    dtype: int
+    type: meta
+  - name: seq_len
+    active: true
+    dtype: int
+    type: meta
+  - name: user_id
+    active: true
+    dtype: int
+    type: categorical
+    vocab_size: 7706779
+  - name: item_id
+    active: true
+    dtype: int
+    type: categorical
+    vocab_size: 17487677
+    source: item
+  - name: '100'
+    active: true
+    dtype: int
+    type: categorical
+    vocab_size: 7
+    source: item
+  - name: '101'
+    active: true
+    dtype: int
+    type: categorical
+    vocab_size: 54
+    source: item
+  - name: '102'
+    active: true
+    dtype: int
+    type: categorical
+    vocab_size: 173463
+    source: item
+  - name: '112'
+    active: true
+    dtype: int
+    type: categorical
+    vocab_size: 31
+    source: item
+  - name: '114'
+    active: true
+    dtype: int
+    type: categorical
+    vocab_size: 34
+    source: item
+  - name: '115'
+    active: true
+    dtype: int
+    type: categorical
+    vocab_size: 989
+    source: item
+  - name: '116'
+    active: true
+    dtype: int
+    type: categorical
+    vocab_size: 21
+    source: item
+  - name: '117'
+    active: true
+    dtype: int
+    type: categorical
+    vocab_size: 559
+    source: item
+  - name: '118'
+    active: true
+    dtype: int
+    type: categorical
+    vocab_size: 1637
+    source: item
+  - name: '119'
+    active: true
+    dtype: int
+    type: categorical
+    vocab_size: 4951
+    source: item
+  - name: '120'
+    active: true
+    dtype: int
+    type: categorical
+    vocab_size: 4046
+    source: item
+  - name: '121'
+    active: true
+    dtype: int
+    type: categorical
+    vocab_size: 5041300
+    source: item
+  - name: '122'
+    active: true
+    dtype: int
+    type: categorical
+    vocab_size: 2389
+    source: item
+  - name: '103'
+    active: true
+    dtype: int
+    type: categorical
+    vocab_size: 88
+  - name: '104'
+    active: true
+    dtype: int
+    type: categorical
+    vocab_size: 4
+  - name: '105'
+    active: true
+    dtype: int
+    type: categorical
+    vocab_size: 8
+  - name: '109'
+    active: true
+    dtype: int
+    type: categorical
+    vocab_size: 4
+  - name: '106'
+    active: true
+    dtype: int
+    type: sequence
+    max_len: 5
+    vocab_size: 15
+  - name: '107'
+    active: true
+    dtype: int
+    type: sequence
+    max_len: 5
+    vocab_size: 20
+  - name: '108'
+    active: true
+    dtype: int
+    type: sequence
+    max_len: 5
+    vocab_size: 5
+  - name: '110'
+    active: true
+    dtype: int
+    type: sequence
+    max_len: 5
+    vocab_size: 3
+  - name: day_of_week
+    active: true
+    dtype: int
+    type: categorical
+    vocab_size: 8
+  - name: is_weekend
+    active: true
+    dtype: int
+    type: categorical
+    vocab_size: 3
+  - name: hour
+    active: true
+    dtype: int
+    type: categorical
+    vocab_size: 25
+  - name: action
+    active: true
+    dtype: int
+    type: categorical
+    vocab_size: 4
+    source: action
+  label_col:
+  - name: is_click
+    dtype: float
+  - name: is_conversion
+    dtype: float

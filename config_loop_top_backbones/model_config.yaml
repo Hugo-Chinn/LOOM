@@ -1,0 +1,122 @@
+Base:
+  model_root: ./runs_local/checkpoints_loop_top_backbones/
+  num_workers: 4
+  verbose: 1
+  early_stop_patience: 2
+  pickle_feature_encoder: true
+  save_best_only: true
+  eval_steps: null
+  debug_mode: false
+  group_id: user_id
+  use_features: null
+  feature_specs: null
+  feature_config: null
+  dense_optimizer: AdamW
+  sparse_optimizer: Adagrad
+  dense_learning_rate: 1.0e-4
+  sparse_learning_rate: 0.05
+  dense_weight_decay: 0
+  enable_torch_compile: true
+  gradient_checkpointing: false
+
+EST_Taobao_Looped: &est_loop
+  model: EST
+  dataset_id: Taobao_Action
+  loss: [binary_crossentropy, binary_crossentropy, binary_crossentropy, binary_crossentropy]
+  metrics: [logloss, AUC]
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: [128, 64]
+  num_tasks: 4
+  num_layers: 3
+  num_heads: 2
+  token_dim: 256
+  dnn_activations: ReLU
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: {AUC: 1, logloss: 0}
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+  model_type: looped
+  num_loops: 4
+  use_behavior_embedding: true
+  supervision_mode: progressive
+
+EST_Taobao_Looped_Deep:
+  <<: *est_loop
+  supervision_mode: deep_progressive
+
+HeMix_Taobao_Looped: &hemix_loop
+  model: HeMix
+  dataset_id: Taobao_Action
+  loss: [binary_crossentropy, binary_crossentropy, binary_crossentropy, binary_crossentropy]
+  metrics: [logloss, AUC]
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: [128, 64]
+  num_tasks: 4
+  num_layers: 3
+  token_dim: 256
+  num_glocal_token: 2
+  num_real_token: 2
+  num_mix_heads: 2
+  low_rank_dim: 16
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: {AUC: 1, logloss: 0}
+  monitor_mode: max
+  max_len: 100
+  real_seq_len: 20
+  accumulation_steps: 1
+  model_type: looped
+  num_loops: 4
+  use_behavior_embedding: true
+  supervision_mode: progressive
+
+HeMix_Taobao_Looped_Deep:
+  <<: *hemix_loop
+  supervision_mode: deep_progressive
+
+UltraHSTU_Taobao_Looped: &ultra_loop
+  model: UltraHSTU
+  dataset_id: Taobao_Action
+  loss: [binary_crossentropy, binary_crossentropy, binary_crossentropy, binary_crossentropy]
+  metrics: [logloss, AUC]
+  task: binary_classification
+  batch_size: 8192
+  embedding_dim: 16
+  tower_hidden_units: [128, 64]
+  num_tasks: 4
+  truncation_start_layer: 2
+  truncation_ratio: 0.5
+  k1: [32, 32, 16]
+  k2: [20, 10, 10]
+  num_heads: 1
+  token_dim: 256
+  tower_activations: ReLU
+  net_dropout: 0
+  epochs: 1
+  shuffle: true
+  seed: 20262027
+  monitor: {AUC: 1, logloss: 0}
+  monitor_mode: max
+  max_len: 100
+  accumulation_steps: 1
+  model_type: looped
+  num_loops: 4
+  use_behavior_embedding: true
+  supervision_mode: progressive
+  enable_torch_compile: false
+
+UltraHSTU_Taobao_Looped_Deep:
+  <<: *ultra_loop
+  supervision_mode: deep_progressive

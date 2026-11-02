@@ -1,0 +1,362 @@
+Base:
+    model_root: './checkpoints/'
+    num_workers: 4
+    verbose: 1
+    early_stop_patience: 2
+    pickle_feature_encoder: True
+    save_best_only: True
+    eval_steps: null
+    debug_mode: False
+    group_id: user_id
+    use_features: null
+    feature_specs: null
+    feature_config: null
+    dense_optimizer: AdamW
+    sparse_optimizer: Adagrad
+    dense_learning_rate: 1.0e-4
+    sparse_learning_rate: 0.05
+    dense_weight_decay: 0
+    enable_torch_compile: True
+    gradient_checkpointing: False
+
+
+SharedBottom_TencentGR:
+    model: SharedBottom
+    dataset_id: TencentGR_10M_Action
+    loss:
+        - binary_crossentropy
+        - binary_crossentropy
+    num_tasks: 2
+    metrics:
+        - logloss
+        - AUC
+    task: binary_classification
+    batch_size: 8192
+    embedding_dim: 16
+    token_dim: 256
+    num_ns_token: 4
+    tokenizer_type: Chunk
+    tower_hidden_units:
+        - 128
+        - 64
+    tower_activations: ReLU
+    attention_dropout: 0
+    net_dropout: 0
+    num_layers: 3
+    expansion_factor: 2
+    epochs: 1
+    shuffle: true
+    seed: 20262031
+    monitor:
+        AUC: 1
+        logloss: 0
+    monitor_mode: max
+    max_len: 100
+    accumulation_steps: 1
+    bottom_type: mlp
+    bottom_hidden_units:
+        - 256
+        - 128
+
+ParallelIndependentTower_TencentGR:
+    model: ParallelIndependentTower
+    dataset_id: TencentGR_10M_Action
+    loss:
+        - binary_crossentropy
+        - binary_crossentropy
+    num_tasks: 2
+    metrics:
+        - logloss
+        - AUC
+    task: binary_classification
+    batch_size: 8192
+    embedding_dim: 16
+    token_dim: 256
+    num_ns_token: 4
+    tokenizer_type: Chunk
+    tower_hidden_units:
+        - 128
+        - 64
+    tower_activations: ReLU
+    attention_dropout: 0
+    net_dropout: 0
+    num_layers: 3
+    expansion_factor: 2
+    epochs: 1
+    shuffle: true
+    seed: 20262031
+    monitor:
+        AUC: 1
+        logloss: 0
+    monitor_mode: max
+    max_len: 100
+    accumulation_steps: 1
+    bottom_type: mixer
+
+MMoE_TencentGR:
+    model: MMoE
+    dataset_id: TencentGR_10M_Action
+    loss:
+        - binary_crossentropy
+        - binary_crossentropy
+    num_tasks: 2
+    metrics:
+        - logloss
+        - AUC
+    task: binary_classification
+    batch_size: 8192
+    embedding_dim: 16
+    token_dim: 256
+    num_ns_token: 4
+    tokenizer_type: Chunk
+    tower_hidden_units:
+        - 128
+        - 64
+    tower_activations: ReLU
+    attention_dropout: 0
+    net_dropout: 0
+    num_layers: 3
+    expansion_factor: 2
+    epochs: 1
+    shuffle: true
+    seed: 20262031
+    monitor:
+        AUC: 1
+        logloss: 0
+    monitor_mode: max
+    max_len: 100
+    accumulation_steps: 1
+    num_experts: 4
+    expert_hidden_units:
+        - 256
+
+PLE_TencentGR:
+    model: PLE
+    dataset_id: TencentGR_10M_Action
+    loss:
+        - binary_crossentropy
+        - binary_crossentropy
+    num_tasks: 2
+    metrics:
+        - logloss
+        - AUC
+    task: binary_classification
+    batch_size: 8192
+    embedding_dim: 16
+    token_dim: 256
+    num_ns_token: 4
+    tokenizer_type: Chunk
+    tower_hidden_units:
+        - 128
+        - 64
+    tower_activations: ReLU
+    attention_dropout: 0
+    net_dropout: 0
+    num_layers: 3
+    expansion_factor: 2
+    epochs: 1
+    shuffle: true
+    seed: 20262031
+    monitor:
+        AUC: 1
+        logloss: 0
+    monitor_mode: max
+    max_len: 100
+    accumulation_steps: 1
+    num_levels: 2
+    num_shared_experts: 2
+    num_task_experts: 2
+    expert_hidden_units:
+        - 256
+
+STEM_TencentGR:
+    model: STEM
+    dataset_id: TencentGR_10M_Action
+    loss:
+        - binary_crossentropy
+        - binary_crossentropy
+    num_tasks: 2
+    metrics:
+        - logloss
+        - AUC
+    task: binary_classification
+    batch_size: 8192
+    embedding_dim: 16
+    token_dim: 256
+    num_ns_token: 4
+    tokenizer_type: Chunk
+    tower_hidden_units:
+        - 128
+        - 64
+    tower_activations: ReLU
+    attention_dropout: 0
+    net_dropout: 0
+    num_layers: 3
+    expansion_factor: 2
+    epochs: 1
+    shuffle: true
+    seed: 20262031
+    monitor:
+        AUC: 1
+        logloss: 0
+    monitor_mode: max
+    max_len: 100
+    accumulation_steps: 1
+    num_shared_experts: 2
+    num_task_experts: 2
+    expert_hidden_units:
+        - 256
+    task_embedding: residual
+    private_rank: 16
+
+MoME_TencentGR:
+    model: MoME
+    dataset_id: TencentGR_10M_Action
+    loss:
+        - binary_crossentropy
+        - binary_crossentropy
+    num_tasks: 2
+    metrics:
+        - logloss
+        - AUC
+    task: binary_classification
+    batch_size: 8192
+    embedding_dim: 16
+    token_dim: 256
+    num_ns_token: 4
+    tokenizer_type: Chunk
+    tower_hidden_units:
+        - 128
+        - 64
+    tower_activations: ReLU
+    attention_dropout: 0
+    net_dropout: 0
+    num_layers: 3
+    expansion_factor: 2
+    epochs: 1
+    shuffle: true
+    seed: 20262031
+    monitor:
+        AUC: 1
+        logloss: 0
+    monitor_mode: max
+    max_len: 100
+    accumulation_steps: 1
+    num_experts: 4
+    base_hidden_units:
+        - 256
+    mask_sparsity_weight: 0.0001
+
+ResFlow_TencentGR:
+    model: ResFlow
+    dataset_id: TencentGR_10M_Action
+    loss:
+        - binary_crossentropy
+        - binary_crossentropy
+    num_tasks: 2
+    metrics:
+        - logloss
+        - AUC
+    task: binary_classification
+    batch_size: 8192
+    embedding_dim: 16
+    token_dim: 256
+    num_ns_token: 4
+    tokenizer_type: Chunk
+    tower_hidden_units:
+        - 128
+        - 64
+    tower_activations: ReLU
+    attention_dropout: 0
+    net_dropout: 0
+    num_layers: 3
+    expansion_factor: 2
+    epochs: 1
+    shuffle: true
+    seed: 20262031
+    monitor:
+        AUC: 1
+        logloss: 0
+    monitor_mode: max
+    max_len: 100
+    accumulation_steps: 1
+    fusion_mode: additive
+    use_residual_flow: true
+    stop_gradient: false
+
+OneRank_TencentGR:
+    model: OneRank
+    dataset_id: TencentGR_10M_Action
+    loss:
+        - binary_crossentropy
+        - binary_crossentropy
+    num_tasks: 2
+    metrics:
+        - logloss
+        - AUC
+    task: binary_classification
+    batch_size: 8192
+    embedding_dim: 16
+    token_dim: 256
+    num_ns_token: 4
+    tokenizer_type: Chunk
+    tower_hidden_units:
+        - 128
+        - 64
+    tower_activations: ReLU
+    attention_dropout: 0
+    net_dropout: 0
+    num_layers: 2
+    expansion_factor: 2
+    epochs: 1
+    shuffle: true
+    seed: 20262031
+    monitor:
+        AUC: 1
+        logloss: 0
+    monitor_mode: max
+    max_len: 100
+    accumulation_steps: 1
+    task_token_mode: multi
+    bottom_type: none
+    num_heads: 4
+    candidate_pool_mode: batch
+
+LoopMT_TencentGR:
+    model: LoopMT
+    dataset_id: TencentGR_10M_Action
+    loss:
+        - binary_crossentropy
+        - binary_crossentropy
+    num_tasks: 2
+    metrics:
+        - logloss
+        - AUC
+    task: binary_classification
+    batch_size: 8192
+    embedding_dim: 16
+    token_dim: 256
+    num_ns_token: 4
+    tokenizer_type: Chunk
+    tower_hidden_units:
+        - 128
+        - 64
+    tower_activations: ReLU
+    attention_dropout: 0
+    net_dropout: 0
+    num_layers: 3
+    expansion_factor: 2
+    epochs: 1
+    shuffle: true
+    seed: 20262031
+    monitor:
+        AUC: 1
+        logloss: 0
+    monitor_mode: max
+    max_len: 100
+    accumulation_steps: 1
+    num_loops: 2
+    refinement_layers: 1
+    readout: progressive
+    deep_supervision: true
+    auxiliary_loss_weight: 0.5
