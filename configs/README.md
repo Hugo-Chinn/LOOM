@@ -18,3 +18,7 @@ Historical YAML uses UniRank's different schema. Do not pass historical YAML to
 Historical family names are retained to preserve experiment identities.
 Configurations are not all recommended presets, and their presence does not
 mean a completed or validated experiment. Some retain machine-local paths.
+
+For an exact four-seed Native Full reference, see the
+[dataset index and path preparation guide](../docs/HISTORICAL_REPRODUCTION.md).
+Generated machine-local configs belong in ignored `configs/local/`.

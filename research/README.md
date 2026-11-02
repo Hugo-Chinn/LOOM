@@ -1,5 +1,8 @@
 # Historical Research Archive
 
+Start with the [Native Full dataset index and Taobao reproduction guide](../docs/HISTORICAL_REPRODUCTION.md).
+It includes a helper for relocating historical configs without changing model settings.
+
 This directory preserves the original UniRank-based research code, separate
 from the supported portable package in `../loom/`.
 

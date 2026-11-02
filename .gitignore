@@ -25,6 +25,7 @@ data/preprocessed/
 data/raw*/
 data/hf_cache*/
 config_local/
+configs/local/
 research/runs_local/
 research/data/preprocessed/
 research/data/raw*/

@@ -5,6 +5,13 @@ behavior-conditioned updates, progressive task readouts and optional auxiliary
 supervision. The portable PyTorch core accepts tokens from your own backbone.
 The historical UniRank research implementation is retained separately.
 
+## Validation Status
+
+The supported CPU training/inference workflow and same-seed repeatability have
+been tested. Historical industrial four-seed AUC reproduction and clean
+dependency installation are **not yet verified**; remote CI status must be
+checked separately. See [validation evidence and limits](docs/VALIDATION.md).
+
 ## From Zero To Training And Inference
 
 Python 3.10+ is required. This quick start works on CPU:
@@ -43,6 +50,7 @@ not the historical RankMixer feature/sequence tokenizer.
 - [Configuration schema and bounded search space](docs/CONFIGURATION.md)
 - [Coding-agent instructions](AGENTS.md)
 - [Repository architecture and migration map](docs/REPOSITORY.md)
+- [Historical Native Full presets and Taobao reproduction](docs/HISTORICAL_REPRODUCTION.md)
 
 ## Four-Seed Component Exploration
 

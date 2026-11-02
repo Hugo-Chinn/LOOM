@@ -50,3 +50,15 @@ preprocessing, splits, labels, backbone, initializations, optimizer, training
 budget and per-seed/task test comparison using the archived research runner.
 The portable numeric encoder is intentionally different from that historical
 feature/sequence backbone.
+
+## Historical Configuration Guide Checks
+
+The path-preparation helper was run against the local recorded Taobao data;
+it accepted the ordered labels, historical vocabulary sizes and blocked split
+directories and generated all four Full experiment configurations. Unit tests
+verify model settings are unchanged and vocabulary mismatches are rejected.
+The Taobao per-seed/task reference AUC table in `HISTORICAL_REPRODUCTION.md` was
+checked against each original final Test log block.
+
+This validates configuration preparation and reference provenance, not a new
+training run or raw-data preprocessing reproduction.
