@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "loom-mtl"
+version = "0.1.0"
+description = "Portable behavior-conditioned recurrent multi-task modeling"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "Apache-2.0"}
+dependencies = ["torch>=2.2", "numpy>=1.24", "PyYAML>=6", "scikit-learn>=1.3"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[project.scripts]
+loom = "loom.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["loom*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests_portable"]
+

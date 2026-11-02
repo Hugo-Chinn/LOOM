@@ -1,0 +1,50 @@
+name: Portable LOOM
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      explore:
+        description: Run bounded synthetic ablation smoke study (not research evidence)
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      matrix:
+        python: ["3.10", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+      - run: python -m pip install -e ".[dev]"
+      - run: python -m pytest tests_portable -q
+  exploration:
+    if: github.event_name == 'workflow_dispatch' && inputs.explore
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+      - run: python -m pip install -e .
+      - run: loom demo-data --output /tmp/loom-data
+      - run: >-
+          python -m loom.sweep --config examples/portable.yaml --data /tmp/loom-data
+          --output /tmp/loom-study --variants full no_bcu no_mas no_cbm untied
+          --seeds 20262027 20262028 --max-runs 10
+      - uses: actions/upload-artifact@v4
+        with:
+          name: synthetic-smoke-study-not-research-evidence
+          path: |
+            /tmp/loom-study/**/*.json
+            /tmp/loom-study/*.yaml
+            /tmp/loom-study/*.csv
