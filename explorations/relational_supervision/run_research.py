@@ -36,6 +36,8 @@ def record_environment():
 
 def main():
     sys.path.insert(0, str(RESEARCH))
+    from .runtime import install_runtime
+    install_runtime()
     import model_zoo
     from .research_model import RankMixerRelSup
     model_zoo.RankMixerRelSup = RankMixerRelSup
