@@ -1,9 +1,10 @@
 # RelSup: Relational Supervision For Sibling And Parent/Child States
 
 Status: **code written, nothing executed with PyTorch yet.** The authoring
-environment had no PyTorch, so the tests in `tests/` and every training path
-below are unrun. Only the torch-free helpers (graph relations, arm expansion,
-config generation, log collection) were executed. Run step 0 first.
+environment had no PyTorch, so `tests/test_relsup.py` and every training path
+below are unrun. The torch-free protocol tooling (arms, grids, config
+generation, validation decisions, gated test reporting) is covered by
+`tests/test_protocol.py`, which was executed and passes. Run step 0 first.
 
 ## Hypothesis
 
@@ -72,15 +73,17 @@ Expected failure cases to watch:
 |---|---|
 | `structure.py` | edges and sibling pairs of a behavior graph (no torch) |
 | `losses.py` | `RelSupConfig`, `collect`, `relational_loss` shared by both stacks |
-| `arms.py` | arm definitions and weight/margin grids |
+| `arms.py` | pre-registered arms, seeds, grid, target tasks and decision constants |
+| `environment.py` | commit, versions, GPU and determinism flags per run |
 | `portable_model.py` | `RelationalLOOM(loom.LOOM)` subclass; core untouched |
 | `run_portable.py` | bounded NPZ study, per-task CSVs, cross-state AUC matrix |
 | `research_model.py` | `RankMixerRelSup(RankMixer)` subclass; historical file untouched |
 | `run_research.py` | runs `research/run_expid.py` with the subclass injected |
-| `make_research_configs.py` | derives arm configs from a prepared Full config |
+| `make_research_configs.py` | phase 1 / 2 / 3 / confirm configs plus `protocol.json` |
 | `run_queue.sh` | sequential resumable queue on one GPU |
-| `collect_research.py` | final-Test-block AUC per seed/task, paired deltas vs `full` |
-| `tests/test_relsup.py` | parity, gradients, detach, N/A graphs, key encoding |
+| `collect_research.py` | validation-only decisions; test tables only after freezing |
+| `tests/test_relsup.py` | parity, gradients, detach, N/A graphs, key encoding (needs torch) |
+| `tests/test_protocol.py` | grid, targets, phases, survival rule, test gating (no torch) |
 
 Defaults: every weight 0 (loss equals the base model), margin 0.2, arm weight
 0.1, `detach_reference=true`, `diagnostics=true`. Sibling arms are rejected on
@@ -93,7 +96,7 @@ mode. Checkpoints are interchangeable with the base model.
 ```bash
 python -m pip install -e ".[dev]"
 python -m pytest tests -q                                     # existing suite
-python -m pytest explorations/relational_supervision/tests -q # RelSup contracts
+python -m pytest explorations/relational_supervision/tests -q # RelSup + protocol
 loom demo-data --output runs_local/demo-data
 python -m explorations.relational_supervision.run_portable \
   --config configs/portable/default.yaml --data runs_local/demo-data \
@@ -101,7 +104,8 @@ python -m explorations.relational_supervision.run_portable \
 ```
 
 The smoke study only proves the pipeline runs. The demo labels are four
-independent linear tasks with no behavior structure.
+independent linear tasks with no behavior structure. The portable runner
+writes test CSVs immediately, so it is outside the selection protocol.
 
 ## Step 1: Baseline Diagnosis (Is There A Problem To Fix?)
 
@@ -189,64 +193,134 @@ PyTorch, driver and worker settings. If the stack is not bitwise deterministic
 on GPU, results are described as seed-controlled rather than exactly
 reproducible.
 
+### How the protocol is enforced
+
+Values the protocol requires to be fixed in advance live in `arms.py` and are
+copied into every config directory's `protocol.json`. Tools refuse to mix
+directories created under different constants.
+
+| Rule | Enforcement |
+|---|---|
+| Frozen controls | every arm is a copy of the same-seed Full block; only `model`, `relsup_*`, checkpoint root (and `seed` for confirmation) differ; the generator rejects sources whose seeds differ beyond `seed` |
+| Development seeds | generator rejects any source seed set other than 20262027..20262030 |
+| One term per arm | phase 1 arms are generated, not hand-written |
+| Validation-only selection | `collect_research --stage phase1/phase2` never parses a Test block |
+| Test after freezing | `--stage test` needs the frozen phase-2 `selection.json`; outputs are never overwritten |
+| Finite grid | phase 2 emits exactly weight {0.03, 0.10, 0.30} x margin {0.0, 0.2, 0.5}; other values cannot be generated |
+| No partial-grid choice | phase-2 freezing is refused until every grid point has all four seeds |
+| All attempts reported | `attempts.json` lists every arm x seed as complete / incomplete / missing |
+| Environment record | `<expid>.env.json`: commit, dirty files, Python, PyTorch, CUDA, cuDNN, GPU, driver, determinism flags, workers, resolved config |
+| Seed role labels | test tables carry "exploratory" for development seeds and "confirmation" for 20262031..20262034 |
+
+**Values filled in here because the protocol leaves them open. Confirm or
+change them before the first real-data run; afterwards they are frozen.**
+
+- Target tasks, derived from the graph: sibling arms target the sibling tasks
+  (Taobao: cart, fav); edge arms target every task with a parent (cart, fav,
+  buy); a combination targets the union.
+- "Positive in at least 3 of 4 seeds" is applied to **each** target task
+  separately, not to their average.
+- Validation logloss tolerance: the mean paired relative increase versus
+  `full` must be at most **0.5 %** on every task (`LOGLOSS_TOLERANCE_REL`).
+- Phase-2 choice among grid points that pass the survival rule: highest mean
+  paired validation AUC delta averaged over the target tasks; ties go to the
+  smaller weight, then the smaller margin. `sib_decor` and `edge_distill`
+  have no margin, so their grid is the three weights.
+- Confirmation seeds: 20262031, 20262032, 20262033, 20262034.
+- Validation metrics are those of the evaluation that saved the best
+  checkpoint. The Full configs already monitor `{AUC: 1, logloss: 0}`, so
+  validation logloss is logged without affecting checkpoint choice; the
+  generator rejects sources where this is not the case.
+
+Known limits of this protocol, stated so results are read correctly:
+
+- The 3-of-4 sign rule is a screen. Under no effect a single target task
+  passes with probability 5/16; requiring every target task lowers this but
+  phase-1 survival is not evidence of an effect.
+- Phase 2 picks the best of up to nine settings on the same four seeds, so
+  its validation gain is optimistically biased. Only confirmation-seed
+  results on the frozen setting support a claim.
+- All phases must run from one commit. `collect_research` warns when
+  completed runs record different commits.
+
 ## Step 2: Phase 1 On Real Data, One Term Per Arm
 
 ```bash
 python research/prepare_native_config.py --dataset taobao \
   --data-root /absolute/preprocessed --output configs/local/taobao-full \
   --model-root /absolute/outputs/taobao-full
-python -m explorations.relational_supervision.make_research_configs \
-  --source configs/local/taobao-full --output configs/local/taobao-relsup \
+python -m explorations.relational_supervision.make_research_configs --phase 1 \
+  --source configs/local/taobao-full --output configs/local/taobao-relsup-p1 \
   --model-root /absolute/outputs/taobao-relsup            # 5 arms x 4 seeds = 20
-# one run first, then the queue (resumable; one GPU per queue)
-bash explorations/relational_supervision/run_queue.sh configs/local/taobao-relsup 0 '^full_S20262027$'
-bash explorations/relational_supervision/run_queue.sh configs/local/taobao-relsup 0 '^(full|sib_margin)_'
-bash explorations/relational_supervision/run_queue.sh configs/local/taobao-relsup 1 '^(sib_decor|edge_gain|edge_distill)_'
-python -m explorations.relational_supervision.collect_research \
-  --logs /absolute/outputs/taobao-relsup/Taobao_Action \
-  --output runs_local/relsup-taobao-phase1
+# one run first, then the queues (resumable; one GPU per queue)
+bash explorations/relational_supervision/run_queue.sh configs/local/taobao-relsup-p1 0 '^full_S20262027$'
+bash explorations/relational_supervision/run_queue.sh configs/local/taobao-relsup-p1 0 '^(full|sib_margin)_'
+bash explorations/relational_supervision/run_queue.sh configs/local/taobao-relsup-p1 1 '^(sib_decor|edge_gain|edge_distill)_'
+python -m explorations.relational_supervision.collect_research --stage phase1 \
+  --config configs/local/taobao-relsup-p1 --output runs_local/relsup-taobao/phase1
 ```
 
 Two queues may race on feature metadata at start-up (see
 HISTORICAL_REPRODUCTION.md); start the second after the first has begun training.
 
-Controls: `full` is rerun through the same launcher so both sides share code
-path, hardware and seeds. It should track the historical `DAGTrue` table; with
+`full` is rerun through the same launcher so both sides share code path,
+hardware and seeds. It should track the historical `DAGTrue` table; with
 `net_dropout: 0` the extra no-grad head evaluations do not consume random
 numbers, but exact equality with the old logs is not guaranteed and was not
-checked. Budget: 20 runs, one epoch each as in the Full config.
+checked. `phase1/selection.json` lists the survivors and the reason for every
+other arm. Use the same `--model-root` in every phase.
 
-## Step 3: Phase 2, Tune Only What Survived
-
-Keep an arm if its paired per-task delta vs `full` is positive on its target
-tasks in at least 3 of 4 seeds and no task regresses beyond the `full` seed
-standard deviation. For survivors only:
+## Step 3: Phase 2, The Pre-Registered Grid For Survivors
 
 ```bash
-python -m explorations.relational_supervision.make_research_configs \
+python -m explorations.relational_supervision.make_research_configs --phase 2 \
   --source configs/local/taobao-full --output configs/local/taobao-relsup-p2 \
   --model-root /absolute/outputs/taobao-relsup \
-  --arms full sib_margin --scales 0.3 3 --max-runs 12   # weights 0.03 and 0.3
+  --selection runs_local/relsup-taobao/phase1/selection.json --max-runs 80
+bash explorations/relational_supervision/run_queue.sh configs/local/taobao-relsup-p2 0
+python -m explorations.relational_supervision.collect_research --stage phase2 \
+  --config configs/local/taobao-relsup-p1 configs/local/taobao-relsup-p2 \
+  --output runs_local/relsup-taobao/phase2
 ```
 
-`--margin 0 | 0.5` varies the margin the same way. Reuse the phase-1 `full`
-logs (same model root) instead of retraining. Choose weights on validation AUC
-from the logs; `collect_research.py` reports test only and must not be used
-for selection.
+A margin term adds 8 grid points (32 runs); a weight-only term adds 2 (8 runs).
+The phase-1 point is reused, as are the phase-1 `full` runs. The budget is
+explicit: `--max-runs` must be raised to the number printed in the refusal.
+`phase2/selection.json` freezes one setting per surviving term.
 
-## Step 4: Phase 3, Combination And Transfer
+## Step 4: Phase 3, Combination, Confirmation And Transfer
 
-1. `combo_margin_gain` (and `combo_all` only if all four survived) at the
-   chosen weights, four seeds.
-2. Repeat the winning arm on one more dataset whose graph has siblings
-   (`--dataset kuairand` or `merrec`).
-3. Mechanism check: `sib_margin` on `no_bcu`-style configs
-   (`use_behavior_embedding: false`). If the gain disappears, the loss works by
-   making the behavior embedding matter, which is the intended mechanism.
+```bash
+SEL=runs_local/relsup-taobao/phase2/selection.json
+# combination of the frozen settings (only if at least two terms survived)
+python -m explorations.relational_supervision.make_research_configs --phase 3 \
+  --source configs/local/taobao-full --output configs/local/taobao-relsup-p3 \
+  --model-root /absolute/outputs/taobao-relsup --selection $SEL
+# fresh seeds: full, each frozen arm, and the combination
+python -m explorations.relational_supervision.make_research_configs --phase confirm \
+  --source configs/local/taobao-full --output configs/local/taobao-relsup-confirm \
+  --model-root /absolute/outputs/taobao-relsup --selection $SEL
+# read test only now, for every attempted arm
+python -m explorations.relational_supervision.collect_research --stage test \
+  --config configs/local/taobao-relsup-p1 configs/local/taobao-relsup-p2 \
+           configs/local/taobao-relsup-p3 configs/local/taobao-relsup-confirm \
+  --selection $SEL --output runs_local/relsup-taobao/test
+```
+
+The combination is judged by the same validation rule (`decisions.json` of a
+`--stage phase2` report that includes the phase-3 directory) before any test
+read. Transfer: rerun `--phase confirm` with a second dataset's Full source
+(`--dataset kuairand` or `merrec` in `prepare_native_config.py`) and the same
+`$SEL`; no retuning there. Mechanism check, exploratory and reported as such:
+the frozen `sib_margin` on a `use_behavior_embedding: false` source. If the
+gain disappears, the loss works by making the behavior embedding matter.
 
 ## Reporting
 
-Fill `docs/AGENT_TASK_TEMPLATE.md` from the CSVs: every task, mean and sample
-standard deviation, paired delta, common seeds, plus logloss and the three
-diagnostics. Parameter count is unchanged; training cost rises by a few head
-evaluations per step and is **unmeasured**. No result exists yet.
+Fill `docs/AGENT_TASK_TEMPLATE.md` from `validation_summary.csv`,
+`test_summary.csv`, `attempts.json` and `decisions.json`: every task, every
+common seed, AUC and logloss, paired deltas, sample standard deviations, seed
+counts, the three diagnostics and parameter counts, for every attempted arm.
+Parameter count is unchanged by construction; training cost rises by a few
+head evaluations per step and is **unmeasured** until timed on the server.
+No result exists yet.

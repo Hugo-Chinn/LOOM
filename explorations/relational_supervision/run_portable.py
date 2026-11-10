@@ -5,7 +5,9 @@
         --output runs_local/relsup-portable --device cuda:0
 
 Output layout matches `loom.report`: <output>/<arm>/S<seed>/metrics.json.
-Synthetic demo data checks the pipeline only; it is not method evidence.
+This runner is a pipeline smoke check. It writes test CSVs immediately, so it
+is outside the PLAN.md selection protocol: never select an arm from its output.
+Synthetic demo data is not method evidence.
 """
 import argparse
 import json
@@ -22,11 +24,11 @@ from loom.cli import evaluate, load_split
 from loom.config import LOOMConfig
 from loom.report import summarize
 
-from .arms import PHASE1, expand
+from . import arms as A
+from .environment import write as write_environment
 from .losses import RelSupConfig
 from .portable_model import RelationalTabular
 
-SEEDS = (20262027, 20262028, 20262029, 20262030)
 
 
 def cross_state_auc(model, x, y, device, batch_size=1024):
@@ -118,15 +120,15 @@ def main():
     parser.add_argument("--config", type=Path, required=True)
     parser.add_argument("--data", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--arms", nargs="+", default=list(PHASE1))
-    parser.add_argument("--scales", nargs="+", type=float, default=[1.0])
-    parser.add_argument("--margin", type=float, default=None)
-    parser.add_argument("--seeds", nargs="+", type=int, default=list(SEEDS))
+    parser.add_argument("--arms", nargs="+", default=list(A.phase1()),
+                        choices=list(A.phase1()))
+    parser.add_argument("--seeds", nargs="+", type=int, default=list(A.DEV_SEEDS))
     parser.add_argument("--device", default="cpu")
     parser.add_argument("--threads", type=int, default=2)
     parser.add_argument("--max-runs", type=int, default=20)
     args = parser.parse_args()
-    arms = expand(args.arms, args.scales, args.margin)
+    arms = {name: spec["overrides"] for name, spec in A.phase1().items()
+            if name in args.arms}
     if len(set(args.seeds)) != len(args.seeds):
         parser.error("seeds must be unique")
     count = len(arms) * len(args.seeds)
@@ -145,6 +147,8 @@ def main():
     splits = [((s - mean) / scale, labels) for s, labels in ((x, y), (vx, vy), (tx, ty))]
     device = torch.device(args.device)
     args.output.mkdir(parents=True)
+    write_environment(args.output / "environment.json",
+                      {"seeds": args.seeds, "arms": arms, "training": settings})
     scores = {}
     for arm, overrides in arms.items():
         relsup = RelSupConfig(**overrides)

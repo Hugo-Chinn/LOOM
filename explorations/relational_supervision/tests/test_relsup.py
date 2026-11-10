@@ -3,7 +3,7 @@ import pytest
 import torch
 
 from loom import LOOM, LOOMConfig
-from explorations.relational_supervision.arms import ARMS, expand
+from explorations.relational_supervision.arms import TERMS, overrides
 from explorations.relational_supervision.losses import (
     RelSupConfig, cross_correlation, decode_keys, encode_key)
 from explorations.relational_supervision.portable_model import RelationalLOOM
@@ -48,12 +48,12 @@ def test_zero_weights_equal_core(preloops, diagnostics):
     assert "relational" not in model(x)
 
 
-@pytest.mark.parametrize("arm", [name for name in ARMS if name != "full"])
-def test_each_arm_is_finite_and_changes_the_loss(arm):
+@pytest.mark.parametrize("term", list(TERMS))
+def test_each_term_is_finite_and_changes_the_loss(term):
     x, y = batch()
     y[0, 1] = float("nan")
     reference = RelationalLOOM(config(), RelSupConfig())
-    model = RelationalLOOM(config(), RelSupConfig(**ARMS[arm]))
+    model = RelationalLOOM(config(), RelSupConfig(**overrides(term)))
     model.load_state_dict(reference.state_dict())
     loss = model.loss(model(x), y)
     assert torch.isfinite(loss)
@@ -102,14 +102,10 @@ def test_states_exposed_for_diagnostics():
         out["logits"][:, 3], model._readout(out["states"][3], 3, out["base"]))
 
 
-def test_key_round_trip_and_arm_expansion():
+def test_key_round_trip_and_config_validation():
     keys = [("logit", 1, 2, True), ("logit", 3, 3, False), ("delta", 2, 0)]
     encoded = {encode_key(key): index for index, key in enumerate(keys)}
     encoded["click_pred"] = -1
     assert decode_keys(encoded) == {key: index for index, key in enumerate(keys)}
-    arms = expand(["full", "sib_margin"], (1.0, 3.0), margin=0.5)
-    assert set(arms) == {"full", "sib_margin_m0.5", "sib_margin_x3_m0.5"}
-    assert arms["sib_margin_x3_m0.5"] == {"sibling_margin_weight": 0.3,
-                                          "sibling_margin": 0.5}
     with pytest.raises(ValueError):
         RelSupConfig(sibling_margin_weight=-1.0)

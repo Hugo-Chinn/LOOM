@@ -13,4 +13,4 @@ plan, code, tests and run commands. Rules:
 
 | Folder | Idea | Status |
 |---|---|---|
-| `relational_supervision/` | Sibling and parent/child relational losses (RelSup) | Code written, **not yet executed** |
+| `relational_supervision/` | Sibling and parent/child relational losses (RelSup) | Protocol tooling tested; training code **not yet executed** |
