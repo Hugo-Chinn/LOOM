@@ -212,8 +212,9 @@ directories created under different constants.
 | Environment record | `<expid>.env.json`: commit, dirty files, Python, PyTorch, CUDA, cuDNN, GPU, driver, determinism flags, workers, resolved config |
 | Seed role labels | test tables carry "exploratory" for development seeds and "confirmation" for 20262031..20262034 |
 
-**Values filled in here because the protocol leaves them open. Confirm or
-change them before the first real-data run; afterwards they are frozen.**
+**Pre-registered values the protocol leaves open. Confirmed by the project
+owner on 2026-11-10, before any real-data run, and frozen from that date.
+A later change starts a new exploratory phase and is reported as such.**
 
 - Target tasks, derived from the graph: sibling arms target the sibling tasks
   (Taobao: cart, fav); edge arms target every task with a parent (cart, fav,

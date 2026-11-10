@@ -3,6 +3,8 @@
 Everything a decision depends on is fixed here before any real-data run and is
 copied into each config directory's protocol.json. Changing a value after
 results exist starts a new exploratory phase; it does not amend this one.
+
+Frozen 2026-11-10 (owner-confirmed, before any real-data run).
 """
 
 DEV_SEEDS = (20262027, 20262028, 20262029, 20262030)
