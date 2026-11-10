@@ -36,3 +36,36 @@ GitHub `Portable LOOM` CI tests Python 3.10/3.12 on CPU. Manual dispatch with
 Permissions are read-only and no external agent credentials are supplied.
 External coding agents can follow this guide to propose PRs; CI is not an
 autonomous AGI training service.
+
+## Server GPU operational memory
+
+Verified on 2026-11-10; recheck live state before every experiment:
+
+- CUDA error 304, NVML initialization failure or `nvidia-smi` driver errors
+  can result from an execution sandbox hiding `/dev/nvidiactl`,
+  `/dev/nvidia-uvm` and `/dev/nvidiaN`. Compare device visibility and the same
+  interpreter in a permitted GPU-enabled context before diagnosing a driver
+  fault. Follow the current tool permission policy: request escalation only
+  when supported and required; unrestricted sessions run commands directly.
+- This server's 8 H20s and driver 575.57.08 passed the GPU audit. FP32/BF16
+  forward/backward passed on GPUs 0–3. These are dated checks, not guarantees
+  of current health or availability.
+- The verified Native environment is
+  `/home/HugoChinn/LoopMT/UniRank/.venv-unirank/bin/python`
+  (Python 3.12.16, PyTorch 2.6.0+cu124). Select it explicitly; execute current
+  study code from this checkout. The historical UniRank worktree is separate.
+- `rsi_holder.py` can occupy an otherwise idle card with ~429 MiB and ~65%
+  utilization, and reacquire it later. Match UUIDs and NVML PIDs against
+  `/jizhi/jizhi2/worker/trainer/rsi_holder/rsi_holder.py status`.
+  `[Not Found]` process names can reflect host/container PID namespaces.
+  Never assume yesterday's free GPU is available now.
+- For an authorized experiment, coordinate per-UUID holder `pause`/`resume`,
+  verify the target card is released, and restore its prior state afterward.
+  Do not stop the entire holder or unrelated jobs. Run a bounded CUDA
+  preflight before training.
+
+The RelSup branch records the audit in
+`explorations/relational_supervision/ENVIRONMENT.md` and provides
+`python -m explorations.relational_supervision.gpu_preflight`
+(requires exactly one explicitly selected `CUDA_VISIBLE_DEVICES`). Carry
+these operational notes forward when preparing other research branches.

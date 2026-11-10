@@ -14,9 +14,12 @@ libraries succeeded outside that sandbox with approved device access:
 
 This corrects the earlier claim that the server driver was broken. No driver
 installation, device reset, service restart or library change was needed.
-GPU commands from the coding environment must request approved execution
-outside the device-restricted sandbox. The preflight does not grant permission
-or change the sandbox; it detects failure before a queue starts training.
+GPU commands need an execution context that exposes the NVIDIA devices.
+Under a restricted sandbox, use the supported approval mechanism when needed.
+In an unrestricted session, run directly; do not pass unsupported escalation
+options. Follow the current session policy rather than assuming the policy
+from this audit still applies. The preflight does not grant permission or
+change the sandbox; it detects failure before a queue starts training.
 
 ## Verified environments
 
