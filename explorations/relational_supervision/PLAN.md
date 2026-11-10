@@ -118,6 +118,77 @@ If `sibling_gap` is already clearly positive on the real dataset, the sibling
 arms have little room and the edge arms are the better bet. Decide after
 looking, and write the numbers down before running phase 2.
 
+## Fairness And Selection Protocol
+
+The protocol below is fixed before any real-data result is inspected. It is
+part of the experiment definition, not a post-hoc reporting choice.
+
+### Frozen controls
+
+Every arm uses the same dataset version, chronological splits, labels,
+feature preprocessing, graph, backbone, optimizer, batch size, learning rate,
+dropout, epoch budget, supervision mode and parameter initialization policy.
+The only intended change in Phase 1 is one RelSup loss term. The resolved
+configuration, parameter count, repository commit, Python/PyTorch/CUDA
+versions, GPU identity and seed are saved for every run.
+
+The development seed set is exactly
+`{20262027, 20262028, 20262029, 20262030}`. Every arm and its `full` control
+must run on the same seed set, and comparisons are paired by the common seed.
+No seed is added, removed or replaced after looking at results. If the final
+study reuses these seeds after selection, its conclusion is labelled
+exploratory rather than independent confirmation.
+
+### Selection data and metrics
+
+Validation is the only data split permitted for choosing an arm, weight,
+margin, combination or dataset-specific continuation. The test split is read
+only after the arm and all hyperparameters are frozen; test AUC or logloss
+must never determine continuation or selection.
+
+The primary selection metric is validation AUC for every task, reported per
+task rather than only as a macro average. Validation logloss is a safety
+metric and must also be reported. The target tasks for each arm are defined
+by its graph relation before running it. An arm survives Phase 1 only if its
+paired validation AUC delta versus `full` is positive on the predefined
+target tasks in at least 3 of 4 seeds, while no task violates the predefined
+validation logloss regression tolerance. The target-task list and tolerance
+must not be changed after observing results.
+
+### Pre-registered tuning grid
+
+For a surviving single-term arm, Phase 2 tests only the following candidates:
+
+```
+weight  in {0.03, 0.10, 0.30}
+margin  in {0.0, 0.2, 0.5}
+```
+
+Weight and margin are selected using validation only. This is a finite grid,
+not an invitation to expand the search after seeing test results. If a new
+grid or training setting is needed, it is a new exploratory phase and all
+attempted candidates, including unsuccessful ones, remain in the report.
+The selected setting is frozen before any Phase 3 combination or transfer
+run. Phase 3 does not retune on the transfer dataset.
+
+### Confirmation and reporting
+
+The preferred confirmation design reserves a fresh, predeclared seed set for
+the final frozen configuration. If no fresh seeds are affordable, the four
+development seeds may be reused only with an explicit exploratory-result
+label; this must not be described as independent confirmation.
+
+All attempted arms and hyperparameters, including failed or incomplete runs,
+are recorded. Final reports contain every task and every common seed's AUC
+and logloss, paired deltas versus `full`, sample standard deviations, seed
+counts, diagnostics, parameter counts and training cost. The report must not
+selectively show only improved tasks or the best test result.
+
+GPU execution must use a fixed environment and record GPU model, CUDA,
+PyTorch, driver and worker settings. If the stack is not bitwise deterministic
+on GPU, results are described as seed-controlled rather than exactly
+reproducible.
+
 ## Step 2: Phase 1 On Real Data, One Term Per Arm
 
 ```bash
